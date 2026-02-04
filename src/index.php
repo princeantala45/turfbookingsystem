@@ -213,38 +213,7 @@ if (!isset($_SESSION['username'])) {
     </div>
   </section>
 
-  <section>
-    <div class="supported-company">
-      <h1 class="text-2xl pt-0 font-bold pt-20 sm:text-3xl" style="color: rgb(212, 120, 1);">Supported Integrations</h1>
-      <marquee behavior="" direction="">
-        <div class="marquee-div">
-          <img src="./trusted-image/1.webp" alt="">
-          <img src="./trusted-image/2.webp" alt="">
-          <img src="./trusted-image/3.webp" alt="">
-          <img src="./trusted-image/4.webp" alt="">
-          <img src="./trusted-image/5.webp" alt="">
-          <img src="./trusted-image/6.webp" alt="">
-          <img src="./trusted-image/7.webp" alt="">
-          <img src="./trusted-image/8.webp" alt="">
-          <img src="./trusted-image/9.webp" alt="">
-          <img src="./trusted-image/10.webp" alt="">
-          <img src="./trusted-image/11.webp" alt="">
-          <img src="./trusted-image/12.webp" alt="">
-          <img src="./trusted-image/13.webp" alt="">
-          <img src="./trusted-image/14.webp" alt="">
-          <img src="./trusted-image/15.webp" alt="">
-          <img src="./trusted-image/16.webp" alt="">
-          <img src="./trusted-image/17.webp" alt="">
-          <img src="./trusted-image/18.webp" alt="">
-          <img src="./trusted-image/19.webp" alt="">
-          <img src="./trusted-image/20.webp" alt="">
-          <img src="./trusted-image/21.webp" alt="">
-          <img src="./trusted-image/22.webp" alt="">
-          <img src="./trusted-image/23.webp" alt="">
-        </div>
-      </marquee>
-    </div>
-  </section>
+   
 
 
   <!-- Footer Section -->

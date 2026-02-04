@@ -1,104 +1,100 @@
 <?php
-session_start();
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
-// Admin check
-if (!isset($_SESSION['username'])) {
-    header("Location: admin_login.php");
-    exit();
-}
-
+// DB connect
 $conn = mysqli_connect("localhost", "root", "", "turfbookingsystem");
 if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
+    die("DB Connection failed: " . mysqli_connect_error());
 }
 
-// Fetch orders with username join
-$result = mysqli_query($conn, "
-    SELECT ps.id, s.username, ps.product_names, ps.grand_total, 
-           ps.payment_method, ps.payment_ref, ps.created_at
-    FROM product_shopping ps
-    JOIN signup s ON ps.user_id = s.user_id
-    ORDER BY ps.id DESC
-");
+// LEFT JOIN rakhi che ke username na male to pan order dekhay
+$sql = "
+  SELECT ps.id,
+         COALESCE(s.username,'-') AS username,
+         ps.product_names,
+         ps.grand_total,
+         ps.payment_method,
+         ps.payment_ref,
+         ps.created_at
+  FROM product_shopping ps
+  LEFT JOIN signup s ON ps.user_id = s.user_id
+  ORDER BY ps.id DESC
+";
+$result = mysqli_query($conn, $sql);
+if (!$result) {
+    die('Query error: ' . mysqli_error($conn));
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>ADMIN | Orders</title>
-  <link rel="shortcut icon" href="./gallery/favicon.png" type="image/x-icon">
-<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-<style>
-@keyframes slideUp {
-  0% { opacity:0; transform:translateY(20px); }
-  100% { opacity:1; transform:translateY(0); }
-}
-.animate-slideUp { animation: slideUp 0.4s ease-out forwards; }
-</style>
+  <meta charset="UTF-8">
+  <title>ADMIN | Orders</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#f6f7fb;color:#1f2937;margin:0}
+    .wrap{max-width:1100px;margin:24px auto;padding:0 16px}
+    h1{font-size:22px;margin:0 0 14px;color:#1d4ed8}
+    .card{background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:18px;box-shadow:0 1px 2px rgba(0,0,0,0.04)}
+    table{width:100%;border-collapse:collapse}
+    th,td{border:1px solid #e5e7eb;padding:10px;text-align:left;font-size:14px;vertical-align:top}
+    th{background:#f3f4f6}
+    .back{display:inline-block;margin-bottom:10px;padding:8px 12px;border:1px solid #1d4ed8;color:#1d4ed8;border-radius:10px;text-decoration:none}
+    .back:hover{background:#eef2ff}
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace}
+  </style>
 </head>
-<body class="bg-gray-100">
+<body>
+  <div class="wrap">
+    <a class="back" href="admin_dashboard.php">⬅ Back to Dashboard</a>
+    <div class="card">
+      <h1>📦 All Orders</h1>
 
-<div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
-  <!-- Heading + Back Button -->
-  <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 space-y-3 sm:space-y-0">
-    <h1 class="text-2xl sm:text-3xl font-bold text-blue-600">📦 All Orders</h1>
-    <a href="admin_dashboard.php" 
-       class="w-full sm:w-auto text-center px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition">
-       ⬅ Back to Dashboard
-    </a>
-  </div>
-
-  <?php if(mysqli_num_rows($result) > 0): ?>
-    <div class="overflow-x-auto bg-white rounded-xl shadow-lg">
-      <table class="min-w-full text-sm text-left border-collapse">
-        <thead class="bg-blue-600 text-white text-xs sm:text-sm">
-          <tr>
-            <th class="px-3 sm:px-4 py-2">#</th>
-            <th class="px-3 sm:px-4 py-2">Username</th>
-            <th class="px-3 sm:px-4 py-2">Products</th>
-            <th class="px-3 sm:px-4 py-2">Amount</th>
-            <th class="px-3 sm:px-4 py-2">Payment</th>
-            <th class="px-3 sm:px-4 py-2">Reference</th>
-            <th class="px-3 sm:px-4 py-2">Date</th>
-            <th class="px-3 sm:px-4 py-2">Status</th>
-          </tr>
-        </thead>
-        <tbody class="text-gray-700">
-          <?php while($row = mysqli_fetch_assoc($result)): ?>
-            <tr class="border-b hover:bg-gray-50 animate-slideUp">
-              <td class="px-3 sm:px-4 py-2 font-bold"><?= $row['id'] ?></td>
-              <td class="px-3 sm:px-4 py-2"><?= htmlspecialchars($row['username']) ?></td>
-              <td class="px-3 sm:px-4 py-2 text-gray-700 break-words max-w-xs sm:max-w-sm">
-                <?= htmlspecialchars($row['product_names']) ?>
-              </td>
-              <td class="px-3 sm:px-4 py-2 font-semibold whitespace-nowrap">₹<?= number_format($row['grand_total'], 2) ?></td>
-              <td class="px-3 sm:px-4 py-2"><?= strtoupper(htmlspecialchars($row['payment_method'])) ?></td>
-              <td class="px-3 sm:px-4 py-2 text-green-800 break-all"><?= htmlspecialchars($row['payment_ref']) ?></td>
-              <td class="px-3 sm:px-4 py-2 text-xs sm:text-sm whitespace-nowrap"><?= htmlspecialchars($row['created_at']) ?></td>
-              <td class="px-3 sm:px-4 py-2">
-                <?php
-                  $createdAt = new DateTime($row['created_at']);
-                  $now = new DateTime();
-                  $daysPassed = $createdAt->diff($now)->days;
-                  $totalDeliveryDays = 10;
-                  $remainingDays = max($totalDeliveryDays - $daysPassed, 0);
-
-                  if ($remainingDays > 0) {
-                      echo "<span class='text-blue-600 font-semibold'>🚚 {$remainingDays} days left</span>";
-                  } else {
-                      echo "<span class='text-green-600 font-bold'>✅ Delivered</span>";
-                  }
-                ?>
-              </td>
-            </tr>
-          <?php endwhile; ?>
-        </tbody>
-      </table>
+      <?php if(mysqli_num_rows($result) > 0): ?>
+        <div style="overflow:auto">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Username</th>
+                <th>Products</th>
+                <th>Amount</th>
+                <th>Payment</th>
+                <th>Reference</th>
+                <th>Date</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php while($row = mysqli_fetch_assoc($result)): ?>
+                <tr>
+                  <td><?= (int)$row['id'] ?></td>
+                  <td><?= htmlspecialchars($row['username']) ?></td>
+                  <td><?= nl2br(htmlspecialchars($row['product_names'])) ?></td>
+                  <td>₹<?= number_format((float)$row['grand_total'], 2) ?></td>
+                  <td><?= strtoupper(htmlspecialchars($row['payment_method'])) ?></td>
+                  <td class="mono"><?= htmlspecialchars($row['payment_ref']) ?></td>
+                  <td><?= htmlspecialchars($row['created_at']) ?></td>
+                  <td>
+                    <?php
+                      $createdAt = strtotime($row['created_at']);
+                      $daysPassed = $createdAt ? floor((time() - $createdAt) / 86400) : 0;
+                      $remaining = max(10 - $daysPassed, 0);
+                      echo $remaining > 0
+                        ? "🚚 {$remaining} days left"
+                        : "✅ Delivered";
+                    ?>
+                  </td>
+                </tr>
+              <?php endwhile; ?>
+            </tbody>
+          </table>
+        </div>
+      <?php else: ?>
+        <p>No orders found.</p>
+      <?php endif; ?>
     </div>
-  <?php else: ?>
-    <p class="text-center text-gray-500 mt-10">No orders found.</p>
-  <?php endif; ?>
-</div>
-
+  </div>
 </body>
 </html>

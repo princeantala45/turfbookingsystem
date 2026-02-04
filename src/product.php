@@ -51,81 +51,104 @@ if (isset($_POST['add_to_cart'])) {
 }
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>OUR PRODUCTS | TURFBOOKING SYSTEM</title>
-  <!-- ✅ Best Tailwind CDN -->
-<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="input.css">
-  <link rel="stylesheet" href="output.css">
-  <link rel="stylesheet" href="turf.css">
-  <link rel="stylesheet" href="product.css">
-  <link rel="stylesheet" href="style.css">
-  <link rel="shortcut icon" href="./gallery/favicon.png" type="image/x-icon">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OUR PRODUCTS | TURFBOOKING SYSTEM</title>
+    <!-- ✅ Best Tailwind CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="input.css">
+    <link rel="stylesheet" href="output.css">
+    <link rel="stylesheet" href="turf.css">
+    <link rel="stylesheet" href="product.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="./gallery/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
 </head>
+
 <body class="bg-gray-50 text-gray-800">
 
-<?php include "header.php"; ?>
+    <?php include "header.php"; ?>
 
-<section>
-  <div class="line-turf">
-      <p>Home /</p>
-      <p style="margin-left: 5px;">Our Products</p>
-  </div>
-</section>
-<section class="py-10">
-  <div class="product-container max-w-7xl mx-auto px-4">
-    <?php
-    $sql = "SELECT * FROM product";
-    $result = mysqli_query($conn, $sql);
+    <section>
+        <div class="line-turf">
+            <p>Home /</p>
+            <p style="margin-left: 5px;">Our Products</p>
+        </div>
+    </section>
+    <section class="py-10">
+        <div class="product-container max-w-7xl mx-auto px-4">
+            <?php
+            $sql = "SELECT * FROM product";
+            $result = mysqli_query($conn, $sql);
 
-    while ($row = mysqli_fetch_assoc($result)) {
-        $id = $row['product_id'];
-        $name = htmlspecialchars($row['product_name']);
-        $price = number_format($row['product_price']);
-        $image = htmlspecialchars($row['product_image']);
+            while ($row = mysqli_fetch_assoc($result)) {
+                $id = $row['product_id'];
+                $name = htmlspecialchars($row['product_name']);
+                $price = number_format($row['product_price']);
+                $image = htmlspecialchars($row['product_image']);
+                $availability = htmlspecialchars($row['product_availability']); // 👈 new field
+echo '
+<div class="product-card bg-white rounded-2xl shadow-md hover:shadow-lg transition p-5 text-center flex flex-col items-center">
+    
+    <!-- Product Image -->
+    <div class="w-40 h-40 flex items-center justify-center mb-4">
+        <img src="../' . $image . '" alt="' . $name . '" class="max-h-full object-contain rounded-lg">
+    </div>
 
-        echo '
-        <div class="product-card">
-            <div class="product-image">
-                <img src="../' . $image . '" alt="' . $name . '">
-            </div>
-            <h3>' . $name . '</h3>
-            <p style="color: green;">₹' . $price . '</p>
-            <form method="post" class="cart-form">
-                <input type="hidden" name="product_id" value="' . $id . '">
-                <button type="submit" class="add-to-cart-btn" name="add_to_cart" title="Add to Cart">
-                    <i class="fas fa-cart-plus"></i>
-                </button>
-            </form>
-        </div>';
-    }
-    ?>
-  </div>
-</section>
+    <!-- Product Name -->
+    <h3 class="font-semibold text-lg text-gray-800">' . $name . '</h3>
+
+    <!-- Product Price -->
+    <p class="text-blue-600 font-bold text-base mt-1">₹' . $price . '</p>
+
+    <!-- Availability -->
+    <p class="text-sm text-gray-500 mb-4">Availability: ' . $availability . '</p>
+
+    <!-- Add to Cart Button -->
+    <form method="post" class="w-full flex justify-center">
+        <input type="hidden" name="product_id" value="' . $id . '">
+        <button 
+            type="submit" 
+            name="add_to_cart" 
+            class="inline-flex items-center gap-2 px-6 py-2.5 
+                   rounded-xl bg-blue-600 hover:bg-blue-700 active:bg-blue-800
+                   text-white font-medium text-sm sm:text-base
+                   shadow-md hover:shadow-xl
+                   focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2
+                   transition-all duration-200 ease-in-out">
+            <i class="fas fa-cart-plus"></i> Add to Cart
+        </button>
+    </form>
+</div>';
+
+      }
+            ?>
+        </div>
+    </section>
 
 
-<?php include "footer.php"; ?> 
-<script>
-const cards = document.querySelectorAll('.product-card');
+    <?php include "footer.php"; ?>
+    <script>
+        const cards = document.querySelectorAll('.product-card');
 
-function revealCards() {
-  cards.forEach(card => {
-    const rect = card.getBoundingClientRect();
-    if (rect.top < window.innerHeight - 50) {
-      card.classList.add('show');
-    }
-  });
-}
+        function revealCards() {
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 50) {
+                    card.classList.add('show');
+                }
+            });
+        }
 
-window.addEventListener('scroll', revealCards);
-window.addEventListener('load', revealCards);
-
-</script>
-<script src="main.js"></script>
+        window.addEventListener('scroll', revealCards);
+        window.addEventListener('load', revealCards);
+    </script>
+    <script src="main.js"></script>
 </body>
+
 </html>
