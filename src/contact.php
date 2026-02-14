@@ -1,52 +1,64 @@
 <?php
+
 session_start();
+$status = "";
+$message = "";
+$redirect = "";
+
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "turfbookingsystem";
 
 if (!isset($_SESSION['username'])) {
-    echo "<script>
-        alert('Please login first to access this page.');
-        window.location.href = 'login.php';
-    </script>";
-    exit();
-}
+    $status = "warning";
+    $message = "Please login first to access this page.";
+    $redirect = "login.php";
+} else {
 
-$conn = mysqli_connect("localhost", "root", "", "turfbookingsystem");
+    $conn = mysqli_connect("localhost", "root", "", "turfbookingsystem", 3307);
 
-if (!$conn) {
-    die("<script>alert('Database connection failed');</script>");
-}
+    if (!$conn) {
+        $status = "error";
+        $message = "Database connection failed.";
+    }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
-    $username = $_SESSION['username']; // username from login session
-    $name     = $_POST['name'];
-    $email    = $_POST['email'];
-    $mobile   = $_POST['mobile'];
-    $message  = $_POST['message'];
-    $date     = date('Y-m-d H:i:s'); // current datetime
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 
-    // Get user_id from signup table
-    $user_result = mysqli_query($conn, "SELECT user_id FROM signup WHERE username = '$username'");
-    if (mysqli_num_rows($user_result) == 1) {
-        $row = mysqli_fetch_assoc($user_result);
-        $user_id = $row['user_id'];
+        $username = $_SESSION['username'];
+        $name     = $_POST['name'];
+        $email    = $_POST['email'];
+        $mobile   = $_POST['mobile'];
+        $message_text  = $_POST['message'];
+        $date     = date('Y-m-d H:i:s');
 
-        // Insert into contact table with foreign key
-        $sql = "INSERT INTO contact (user_id, name, email, mobile, message, message_date) 
-                VALUES ('$user_id', '$name', '$email', '$mobile', '$message', '$date')";
+        $user_result = mysqli_query($conn, "SELECT user_id FROM signup WHERE username = '$username'");
 
-        if (mysqli_query($conn, $sql)) {
-            echo "<script>alert('Message sent successfully!'); window.location.href='contact.php';</script>";
+        if (mysqli_num_rows($user_result) == 1) {
+
+            $row = mysqli_fetch_assoc($user_result);
+            $user_id = $row['user_id'];
+
+            $sql = "INSERT INTO contact (user_id, name, email, mobile, message, message_date) 
+                    VALUES ('$user_id', '$name', '$email', '$mobile', '$message_text', '$date')";
+
+            if (mysqli_query($conn, $sql)) {
+                $status = "success";
+                $message = "Message sent successfully!";
+                $redirect = "contact.php";
+            } else {
+                $status = "error";
+                $message = "Message sending failed.";
+            }
+
         } else {
-            echo "<script>alert('Message sending failed.');</script>";
+            $status = "error";
+            $message = "User not found.";
         }
-    } else {
-        echo "<script>alert('User not found.');</script>";
     }
 }
 ?>
+
 
 
 <!DOCTYPE html>
@@ -57,6 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
   <link href="./output.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="contact.css">
   <link rel="shortcut icon" href="./gallery/favicon.png" type="image/x-icon">
@@ -136,12 +149,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
                     <input type="text" name="name" required>
                 </div>
                 <div class="email">
-                    Email address (required)
-                    <input type="email" name="email" required>
-                </div>
+    Email address (required)
+    <input 
+        type="email" 
+        name="email" 
+        required
+        style="text-transform: lowercase;"
+        oninput="this.value = this.value.toLowerCase()"
+        autocapitalize="none"
+        autocomplete="off"
+        autocorrect="off"
+        spellcheck="false">
+</div>
+
                 <div class="mobile-contact">
                     Mobile number (required)
-                    <input type="text" name="mobile" required>
+                    <input 
+    type="tel" 
+    name="mobile" 
+    pattern="[0-9]{10}" 
+    maxlength="10" 
+    inputmode="numeric"
+    required>
+
                 </div>
                 <div class="message">
                     Message (required)
@@ -157,6 +187,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
       <?php include"footer.php" ?> 
 
   <script src="main.js"></script>
+  <?php if (!empty($status)) { ?>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    Swal.fire({
+        icon: '<?php echo $status; ?>',
+        title: '<?php echo ucfirst($status); ?>',
+        text: '<?php echo $message; ?>',
+        <?php if($status == "success") { ?>
+        timer: 2000,
+        showConfirmButton: false
+        <?php } ?>
+    }).then(() => {
+        <?php if(!empty($redirect)) { ?>
+        window.location.href = '<?php echo $redirect; ?>';
+        <?php } ?>
+    });
+});
+</script>
+<?php } ?>
+
 </body>
 </html>
 

@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$conn = mysqli_connect("localhost", "root", "", "turfbookingsystem");
+$conn = mysqli_connect("localhost", "root", "", "turfbookingsystem",3307);
 if (!$conn) {
   die("Connection failed: " . mysqli_connect_error());
 }

@@ -1,13 +1,36 @@
 <?php
 session_start();
-    if (!isset($_SESSION['username'])) {
-    echo "<script>
-        alert('Please login first to access this page.');
-        window.location.href = 'login.php';
-    </script>";
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "turfbookingsystem";
+
+if (!isset($_SESSION['username'])) {
+    echo '
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    </head>
+    <body>
+        <script>
+            Swal.fire({
+                icon: "warning",
+                title: "Login Required",
+                text: "Please login first to access this page.",
+                confirmButtonText: "OK"
+            }).then(function() {
+                window.location.href = "login.php";
+            });
+        </script>
+    </body>
+    </html>
+    ';
     exit();
 }
-  ?>
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

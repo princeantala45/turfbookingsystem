@@ -1,13 +1,35 @@
 <?php
-session_start();
+  session_start();
+
+if (!isset($_SESSION['username'])) {
+    echo "
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+    </head>
+    <body>
+        <script>
+            Swal.fire({
+                icon: 'warning',
+                title: 'Login Required',
+                text: 'Please login first',
+                confirmButtonText: 'OK'
+            }).then(function() {
+                window.location.href = 'login.php';
+            });
+        </script>
+    </body>
+    </html>
+    ";
+    exit();
+}
+
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "turfbookingsystem";
-if (!isset($_SESSION['username'])) {
-  header("Location: login.php"); 
-  exit();
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -62,16 +84,40 @@ if (!isset($_SESSION['username'])) {
       </div>
     </div>
   </section>
+<section class="pt-10">
+  <div class="marquee">
+    <div class="marquee-content">
+      <img src="./play-boy.png" width="69" alt="playlogo" />
+      <strong>Book, Play, Win - Sports Life</strong>
+      <img src="./play-boy.png" width="69" alt="playlogo" />
+    </div>
+  </div>
+</section>
 
-  <section class="pt-10">
-    <marquee behavior="scroll" direction="left" scrollamount="5">
-      <span style="display: inline-flex; align-items: center; gap: 10px;">
-        <img src="./play-boy.png" width="69px" alt="playlogo" />
-        <strong>Book, Play, Win - Sports Life</strong>
-        <img src="./play-boy.png" width="69px" alt="playlogo" />
-      </span>
-    </marquee>
-  </section>
+<style>
+.marquee {
+  overflow: hidden;
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+
+.marquee-content {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  animation: scroll-left 10s linear infinite;
+}
+
+@keyframes scroll-left {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+</style>
+
 
   <section class="flex justify-center" style="overflow: hidden;">
     <div class="flex flex-col justify-center items-center text-center w-1/1">
@@ -213,38 +259,51 @@ if (!isset($_SESSION['username'])) {
     </div>
   </section>
 
-  <section>
-    <div class="supported-company">
-      <h1 class="text-2xl pt-0 font-bold pt-20 sm:text-3xl" style="color: rgb(212, 120, 1);">Supported Integrations</h1>
-      <marquee behavior="" direction="">
-        <div class="marquee-div">
-          <img src="./trusted-image/1.webp" alt="">
-          <img src="./trusted-image/2.webp" alt="">
-          <img src="./trusted-image/3.webp" alt="">
-          <img src="./trusted-image/4.webp" alt="">
-          <img src="./trusted-image/5.webp" alt="">
-          <img src="./trusted-image/6.webp" alt="">
-          <img src="./trusted-image/7.webp" alt="">
-          <img src="./trusted-image/8.webp" alt="">
-          <img src="./trusted-image/9.webp" alt="">
-          <img src="./trusted-image/10.webp" alt="">
-          <img src="./trusted-image/11.webp" alt="">
-          <img src="./trusted-image/12.webp" alt="">
-          <img src="./trusted-image/13.webp" alt="">
-          <img src="./trusted-image/14.webp" alt="">
-          <img src="./trusted-image/15.webp" alt="">
-          <img src="./trusted-image/16.webp" alt="">
-          <img src="./trusted-image/17.webp" alt="">
-          <img src="./trusted-image/18.webp" alt="">
-          <img src="./trusted-image/19.webp" alt="">
-          <img src="./trusted-image/20.webp" alt="">
-          <img src="./trusted-image/21.webp" alt="">
-          <img src="./trusted-image/22.webp" alt="">
-          <img src="./trusted-image/23.webp" alt="">
-        </div>
-      </marquee>
+<section>
+  <div class="supported-company">
+  <h1 class="text-2xl font-bold sm:text-3xl text-center mt-12" 
+    style="margin-top: 80px; color: rgb(212, 120, 1);">
+
+  Supported Integrations
+</h1>
+
+
+    <div class="marquee-wrapper">
+      <div class="marquee-track">
+        <img src="./trusted-image/1.webp">
+        <img src="./trusted-image/2.webp">
+        <img src="./trusted-image/3.webp">
+        <img src="./trusted-image/4.webp">
+        <img src="./trusted-image/5.webp">
+        <img src="./trusted-image/6.webp">
+        <img src="./trusted-image/7.webp">
+        <img src="./trusted-image/8.webp">
+        <img src="./trusted-image/9.webp">
+        <img src="./trusted-image/10.webp">
+        <img src="./trusted-image/11.webp">
+        <img src="./trusted-image/12.webp">
+        <img src="./trusted-image/13.webp">
+        <img src="./trusted-image/14.webp">
+        <img src="./trusted-image/15.webp">
+        <img src="./trusted-image/16.webp">
+        <img src="./trusted-image/17.webp">
+        <img src="./trusted-image/18.webp">
+        <img src="./trusted-image/19.webp">
+        <img src="./trusted-image/20.webp">
+        <img src="./trusted-image/21.webp">
+        <img src="./trusted-image/22.webp">
+        <img src="./trusted-image/23.webp">
+
+        <!-- duplicate for smooth infinite scroll -->
+        <img src="./trusted-image/1.webp">
+        <img src="./trusted-image/2.webp">
+        <img src="./trusted-image/3.webp">
+        <img src="./trusted-image/4.webp">
+        <img src="./trusted-image/5.webp">
+      </div>
     </div>
-  </section>
+  </div>
+</section>
 
 
   <!-- Footer Section -->

@@ -22,6 +22,12 @@
   </style>
   
 <section>
+  <!-- Loader -->
+<div id="loader">
+  <img src="leaf-loader-CVgu4tmg.gif" alt="Loading..." class="loader-img">
+  <p style="color:green;">Loading...</p>
+</div>
+
    <!-- Header Section -->
     <div class="up-errow">
         <i class="fa-solid fa-angles-up" style="font-size: 20px;"></i>
@@ -31,8 +37,12 @@
     </div>
   <div class="container">
     <div class="nav-box-1">
-      <img class="w-30 pl-4 pt-2" src="./header-image-black.png" alt="">
+      <a href="index.php">
+        <img class="w-30 pl-4 pt-2" src="./header-image-black.png" alt="">
+      </a>
+      <a href="index.php">
         <h1 class="typewriter text-2xl font-bold" style="color:#FF7518">TURFBOOKING SYSTEM</h1>
+      </a>
     </div>
 
     <div id="navlinks" class="nav-box-2" style="padding-right: 10px;">
@@ -83,4 +93,16 @@ $username = $_SESSION['username'] ?? 'Guest';
 </div>
     </div>
 </section>
+<!-- <script>
+  window.addEventListener("load", function () {
+    document.getElementById("loader").classList.add("hide");
+  });
+</script> -->
 
+<script>
+  window.addEventListener("load", function () {
+    setTimeout(function () {
+      document.getElementById("loader").classList.add("hide");
+    }, 1000); // 2000ms = 2 seconds
+  });
+</script>

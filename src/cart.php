@@ -1,11 +1,22 @@
 <?php
-session_start();
+session_start();  
 if (!isset($_SESSION['username'])) {
-    echo "<script>alert('Please login first'); window.location.href = 'login.php';</script>";
+    echo "
+    <script>
+        Swal.fire({
+            icon: 'warning',
+            title: 'Login Required',
+            text: 'Please login first',
+            confirmButtonText: 'OK'
+        }).then(function() {
+            window.location.href = 'login.php';
+        });
+    </script>
+    ";
     exit();
-}
+} 
 
-$conn = mysqli_connect("localhost", "root", "", "turfbookingsystem");
+$conn = mysqli_connect("localhost", "root", "", "turfbookingsystem",3307);
 if (!$conn) die("DB error: " . mysqli_connect_error());
 
 if (!isset($_SESSION['cart'])) $_SESSION['cart'] = [];
@@ -67,6 +78,7 @@ if (!empty($_SESSION['cart'])) {
   <link rel="stylesheet" href="output.css">
   <link rel="stylesheet" href="turf.css">
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <link rel="shortcut icon" href="./gallery/favicon.png" type="image/x-icon">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>

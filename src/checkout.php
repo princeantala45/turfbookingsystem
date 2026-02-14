@@ -1,11 +1,23 @@
 <?php
 session_start();
+$alertScript = "";
+
 if (!isset($_SESSION['username'])) {
-  echo "<script>alert('Please login first.'); window.location.href='login.php';</script>";
-  exit;
+
+  $alertScript = "
+  Swal.fire({
+    icon: 'warning',
+    title: 'Login Required',
+    text: 'Please login first.'
+  }).then(() => {
+    window.location.href='login.php';
+  });
+  ";
+
 }
 
-$conn = mysqli_connect("localhost", "root", "", "turfbookingsystem");
+
+$conn = mysqli_connect("localhost", "root", "", "turfbookingsystem",3307);
 if (!$conn) die("Connection failed: " . mysqli_connect_error());
 
 $user_id = $_SESSION['user_id'];
@@ -30,8 +42,16 @@ if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0) {
     $total += $row['total_price'];
   }
 } else {
-  echo "<script>alert('Your cart is empty!'); window.location.href='product.php';</script>";
-  exit;
+$alertScript = "
+Swal.fire({
+  icon: 'warning',
+  title: 'Cart Empty',
+  text: 'Your cart is empty!'
+}).then(() => {
+  window.location.href='product.php';
+});
+";
+
 }
 
 $sgst = $total * 0.09;
@@ -87,11 +107,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         VALUES ('$user_id','$username','$product_names','$upiid' ,'$payment_ref')");
     }
 
-    echo "<script>
-      alert('✅ Order Placed!\\nOrder ID: $order_id\\nPayment Reference: $payment_ref');
-      window.location.href='product_history.php';
-    </script>";
-    exit;
+$alertScript = "
+Swal.fire({
+  icon: 'success',
+  title: 'Order Placed!',
+  html: 'Order ID: <b>$order_id</b><br>Payment Ref: <b>$payment_ref</b>'
+}).then(() => {
+  window.location.href='product_history.php';
+});
+";
+
   } else {
     echo "Error: " . mysqli_error($conn);
     exit;
@@ -114,6 +139,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <link rel="shortcut icon" href="./gallery/favicon.png" type="image/x-icon">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   <style>
     @keyframes fadeIn {
       from {
@@ -162,17 +189,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <input type="text" name="fullname" id="fullname"
         placeholder="Full Name"
         required
-        class="border p-3 rounded focus:ring focus:ring-indigo-300"
+        class="border p-3 rounded focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500
+"
         title="Full name must contain only alphabets" />
 
-      <input type="email" name="email" placeholder="Email" id="email" required class="border p-3 rounded focus:ring focus:ring-indigo-300">
-      <input type="tel" name="mobile" id="mobile" placeholder="Mobile Number" required maxlength="10" class="border p-3 rounded focus:ring focus:ring-indigo-300">
-      <input type="text" name="state" id="state" placeholder="State" required class="border p-3 rounded focus:ring focus:ring-indigo-300">
-      <input type="text" name="city" id="city" placeholder="City" required class="border p-3 rounded focus:ring focus:ring-indigo-300">
-      <input type="text" name="pincode" id="pincode" placeholder="Pincode" required maxlength="6" class="border p-3 rounded focus:ring focus:ring-indigo-300">
-      <textarea name="address" placeholder="Address" id="address" required class="border p-3 rounded md:col-span-2 focus:ring focus:ring-indigo-300"></textarea>
+      <input type="email" name="email" placeholder="Email" id="email" required class="border p-3 rounded focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500
+">
+      <input type="tel" name="mobile" id="mobile" placeholder="Mobile Number" required maxlength="10" class="border p-3 rounded focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500
+">
+      <input type="text" name="state" id="state" placeholder="State" required class="border p-3 rounded focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500
+">
+      <input type="text" name="city" id="city" placeholder="City" required class="border p-3 rounded focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500
+">
+      <input type="text" name="pincode" id="pincode" placeholder="Pincode" required maxlength="6" class="border p-3 rounded focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500
+">
+      <textarea name="address" placeholder="Address" id="address" required class="border p-3 rounded md:col-span-2 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500
+"></textarea>
 
-      <select name="payment_method" id="payment_method" required class="border p-3 rounded md:col-span-2 focus:ring focus:ring-indigo-300">
+      <select name="payment_method" id="payment_method" required class="border p-3 rounded md:col-span-2 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500
+">
         <option value="">Select Payment Method</option>
         <option value="card">Card</option>
         <option value="upi">UPI</option>
@@ -181,15 +216,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       <!-- Card Fields -->
       <div id="card_fields" class="hidden md:col-span-2 space-y-3">
-        <input type="text" name="cardnumber" id="cardnumber" required placeholder="Card Number" maxlength="12" class="w-full px-4 py-3 border rounded focus:ring focus:ring-indigo-300" />
-        <input type="text" name="cardholdername" id="cardholdername" required placeholder="Cardholder Name" class="w-full px-4 py-3 border rounded focus:ring focus:ring-indigo-300" />
-        <input type="text" name="expiry" id="expiry" placeholder="Expiry (MM/YY)" required maxlength="5" class="w-full px-4 py-3 border rounded focus:ring focus:ring-indigo-300" />
-        <input type="text" name="cvv" id="cvv" placeholder="CVV" required maxlength="3" class="w-full px-4 py-3 border rounded focus:ring focus:ring-indigo-300" />
+        <input type="text" name="cardnumber" id="cardnumber" required placeholder="Card Number" maxlength="12" class="w-full px-4 py-3 border rounded focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500
+" />
+        <input type="text" name="cardholdername" id="cardholdername" required placeholder="Cardholder Name" class="w-full px-4 py-3 border rounded focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500
+" />
+        <input type="text" name="expiry" id="expiry" placeholder="Expiry (MM/YY)" required maxlength="5" class="w-full px-4 py-3 border rounded focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500
+" />
+        <input type="text" name="cvv" id="cvv" placeholder="CVV" required maxlength="3" class="w-full px-4 py-3 border rounded focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500
+" />
       </div>
 
       <!-- UPI Fields -->
       <div id="upi_fields" class="hidden md:col-span-2">
-        <input type="text" name="upi" required id="upi" placeholder="UPI ID" class="w-full px-4 py-3 border rounded focus:ring focus:ring-indigo-300" />
+        <input type="text" name="upi" required id="upi" placeholder="UPI ID" class="w-full px-4 py-3 border rounded focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500
+" />
       </div>
 
       <!-- Hidden -->
@@ -271,7 +311,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         for (let name of required) {
           const el = form.elements[name];
           if (!el?.value.trim()) {
-            alert("Please fill all the fields!");
+            Swal.fire({
+  icon: 'warning',
+  title: 'Incomplete Form',
+  text: 'Please fill all the fields!'
+});
             el?.focus();
             e.preventDefault();
             return;
@@ -279,14 +323,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         if (mobile.value.length !== 10) {
-          alert('Mobile must be 10 digits!');
+          Swal.fire({
+  icon: 'warning',
+  title: 'Invalid Mobile',
+  text: 'Mobile must be 10 digits!'
+});
+
           mobile.focus();
           e.preventDefault();
           return;
         }
 
         if (!/^[A-Za-z\s]+$/.test(city.value)) {
-          alert('City must contain only alphabets!');
+          Swal.fire({
+  icon: 'warning',
+  title: 'Invalid City',
+  text: 'City must contain only alphabets!'
+});
+
           city.focus();
           e.preventDefault();
           return;
@@ -295,7 +349,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (paymentMethod.value === 'card') {
           const [m, y] = expiry.value.split('/');
           if (!m || !y || +m < 1 || +m > 12) {
-            alert('Invalid Expiry Date!');
+            Swal.fire({
+  icon: 'warning',
+  title: 'Invalid Expiry Date',
+  text: 'Enter valid expiry in MM/YY format.'
+});
+
             expiry.focus();
             e.preventDefault();
             return;
@@ -304,7 +363,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           const today = new Date();
           today.setDate(1);
           if (expDate < today) {
-            alert('Card expiry cannot be in the past!');
+            Swal.fire({
+  icon: 'error',
+  title: 'Expired Card',
+  text: 'Card expiry cannot be in the past!'
+});
+
             expiry.focus();
             e.preventDefault();
             return;
@@ -314,7 +378,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (paymentMethod.value === 'upi') {
           const upiRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z]+$/;
           if (!upi.value.trim() || !upiRegex.test(upi.value)) {
-            alert("Enter valid UPI ID (e.g., prince@upi)");
+            Swal.fire({
+  icon: 'error',
+  title: 'Invalid UPI',
+  text: 'Enter valid UPI ID (e.g., prince@upi)'
+});
+
             upi.focus();
             e.preventDefault();
             return;
@@ -326,6 +395,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <script src="all-animation.js"></script>
   <script src="main.js"></script>
   <?php include "footer.php"; ?>
+  <?php if (!empty($alertScript)) : ?>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  <?php echo $alertScript; ?>
+});
+</script>
+<?php endif; ?>
+
 </body>
 
 </html>

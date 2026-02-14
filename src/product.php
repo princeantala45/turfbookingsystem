@@ -1,11 +1,36 @@
 <?php
 session_start();
+$alertScript = "";
 
-// Redirect if user not logged in
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "turfbookingsystem";
+
 if (!isset($_SESSION['username'])) {
-    echo "<script>alert('Please login first.'); window.location.href='login.php';</script>";
+    echo '
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    </head>
+    <body>
+        <script>
+            Swal.fire({
+                icon: "warning",
+                title: "Login Required",
+                text: "Please login first to access this page.",
+                confirmButtonText: "OK"
+            }).then(function() {
+                window.location.href = "login.php";
+            });
+        </script>
+    </body>
+    </html>
+    ';
     exit();
 }
+
 
 // Validate and sanitize cart session
 if (!isset($_SESSION['cart']) || !is_array($_SESSION['cart'])) {
@@ -20,112 +45,254 @@ if (!isset($_SESSION['cart']) || !is_array($_SESSION['cart'])) {
 }
 
 // Connect to database
-$conn = mysqli_connect("localhost", "root", "", "turfbookingsystem");
+$conn = mysqli_connect("localhost", "root", "", "turfbookingsystem",3307);
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-// Add to cart logic
 if (isset($_POST['add_to_cart'])) {
-    $product_id = (int)$_POST['product_id'];
+$product_id = isset($_POST['product_id']) ? (int)$_POST['product_id'] : 0;
+$qty = isset($_POST['qty']) ? (int)$_POST['qty'] : 1;
+$qty = max(1, min(100, $qty));
+
+
     $found = false;
 
     foreach ($_SESSION['cart'] as &$item) {
         if ($item['product_id'] == $product_id) {
+
             if ($item['qty'] < 100) {
-                $item['qty'] += 1;
-                echo "<script>alert('Quantity updated!'); window.location.href='product.php';</script>";
+                $item['qty'] = min(100, $item['qty'] + $qty);
+
+
+                $alertScript = "
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Product Added to Cart!'
+                }).then(function() {
+                    window.location.href='product.php';
+                });
+                ";
+
             } else {
-                echo "<script>alert('Maximum quantity of 100 reached!'); window.location.href='product.php';</script>";
+
+                $alertScript = "
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Maximum quantity of 100 reached!'
+                }).then(function() {
+                    window.location.href='product.php';
+                });
+                ";
             }
+
             $found = true;
             break;
         }
     }
-    unset($item); // break reference
+    unset($item);
 
     if (!$found) {
-        $_SESSION['cart'][] = ['product_id' => $product_id, 'qty' => 1];
-        echo "<script>alert('Product added to cart!'); window.location.href='product.php';</script>";
+        $_SESSION['cart'][] = ['product_id' => $product_id, 'qty' => $qty];
+
+
+        $alertScript = "
+        Swal.fire({
+            icon: 'success',
+            title: 'Product Added to Cart!'
+        }).then(function() {
+            window.location.href='product.php';
+        });
+        ";
     }
 }
+
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>OUR PRODUCTS | TURFBOOKING SYSTEM</title>
-  <!-- ✅ Best Tailwind CDN -->
-<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="input.css">
-  <link rel="stylesheet" href="output.css">
-  <link rel="stylesheet" href="turf.css">
-  <link rel="stylesheet" href="product.css">
-  <link rel="stylesheet" href="style.css">
-  <link rel="shortcut icon" href="./gallery/favicon.png" type="image/x-icon">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OUR PRODUCTS | TURFBOOKING SYSTEM</title>
+    <!-- ✅ Best Tailwind CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="input.css">
+    <link rel="stylesheet" href="output.css">
+    <link rel="stylesheet" href="turf.css">
+    <link rel="stylesheet" href="product.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>    
+    <link rel="shortcut icon" href="./gallery/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
 </head>
+
 <body class="bg-gray-50 text-gray-800">
 
-<?php include "header.php"; ?>
+    <?php include "header.php"; ?>
 
-<section>
-  <div class="line-turf">
-      <p>Home /</p>
-      <p style="margin-left: 5px;">Our Products</p>
-  </div>
-</section>
-<section class="py-10">
-  <div class="product-container max-w-7xl mx-auto px-4">
-    <?php
-    $sql = "SELECT * FROM product";
-    $result = mysqli_query($conn, $sql);
+    <section>
+        <div class="line-turf">
+            <p>Home /</p>
+            <p style="margin-left: 5px;">Our Products</p>
+        </div>
+    </section>
+    <section class="py-10">
+        <div class="product-container max-w-7xl mx-auto px-4">
+            <?php
+            $sql = "SELECT * FROM product";
+            $result = mysqli_query($conn, $sql);
 
-    while ($row = mysqli_fetch_assoc($result)) {
-        $id = $row['product_id'];
-        $name = htmlspecialchars($row['product_name']);
-        $price = number_format($row['product_price']);
-        $image = htmlspecialchars($row['product_image']);
+            while ($row = mysqli_fetch_assoc($result)) {
+                $id = $row['product_id'];
+                $name = htmlspecialchars($row['product_name']);
+                $price = number_format($row['product_price']);
+                $image = htmlspecialchars($row['product_image']);
+                $availability = htmlspecialchars($row['product_availability']); // 👈 new field
+echo '
+<div class="product-card bg-white border border-gray-200 
+            hover:border-blue-500 hover:shadow-xl 
+            transition-all duration-300 rounded-xl 
+            flex flex-col overflow-hidden">
 
-        echo '
-        <div class="product-card">
-            <div class="product-image">
-                <img src="../' . $image . '" alt="' . $name . '">
-            </div>
-            <h3>' . $name . '</h3>
-            <p style="color: green;">₹' . $price . '</p>
-            <form method="post" class="cart-form">
-                <input type="hidden" name="product_id" value="' . $id . '">
-                <button type="submit" class="add-to-cart-btn" name="add_to_cart" title="Add to Cart">
-                    <i class="fas fa-cart-plus"></i>
-                </button>
-            </form>
-        </div>';
-    }
-    ?>
-  </div>
-</section>
+    <!-- Product Image -->
+    <div class="bg-gray-50 flex items-center justify-center p-6 h-56">
+        <img src="../' . $image . '" 
+             alt="' . $name . '" 
+             class="max-h-40 object-contain transition-transform duration-300 hover:scale-105">
+    </div>
+
+    <!-- Product Details -->
+    <div class="flex flex-col flex-grow p-5 text-center">
+
+        <!-- Product Name -->
+        <h3 class="text-base sm:text-lg font-semibold text-gray-800 mb-2 line-clamp-2">
+            ' . $name . '
+        </h3>
+
+        <!-- Availability -->
+        <p class="text-sm mb-2 ' . 
+            ($availability == "In Stock" 
+                ? "text-green-600 font-medium" 
+                : "text-red-500 font-medium") . '">
+            ' . $availability . '
+        </p>
+
+        <!-- Price -->
+        <p class="text-xl font-bold text-gray-900 mb-4">
+            ₹' . $price . '
+        </p>
+
+<form method="post" class="mt-auto">
+    <input type="hidden" name="product_id" value="' . $id . '">
+
+    <!-- Quantity Selector -->
+    <div class="flex items-center justify-center gap-3 mb-3">
+
+        <button type="button"
+            onclick="decrementQty(' . $id . ')"
+            class="w-9 h-9 flex items-center justify-center 
+                   border border-gray-300 rounded-md 
+                   hover:bg-gray-100 transition">
+            −
+        </button>
+
+        <input type="number" 
+            id="qty_' . $id . '" 
+            name="qty"
+            value="1" 
+            min="1" 
+            max="100"
+            class="w-14 text-center border border-gray-300 
+                   rounded-md py-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
+
+        <button type="button"
+            onclick="incrementQty(' . $id . ')"
+            class="w-9 h-9 flex items-center justify-center 
+                   border border-gray-300 rounded-md 
+                   hover:bg-gray-100 transition">
+            +
+        </button>
+
+    </div>
+
+    <!-- Add to Cart Button -->
+    <button type="submit" name="add_to_cart"
+        class="group w-full bg-blue-600 
+               hover:bg-blue-700 
+               text-white font-semibold 
+               py-2.5 rounded-lg 
+               transition-all duration-300 
+               shadow-sm hover:shadow-md 
+               active:scale-95">
+
+        Add to Cart
+    </button>
+
+</form>
+
+    </div>
+</div>';
+    
+      }
+            ?>
+        </div>
+    </section>
 
 
-<?php include "footer.php"; ?> 
+    <?php include "footer.php"; ?>
+    <script>
+        const cards = document.querySelectorAll('.product-card');
+
+        function revealCards() {
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 50) {
+                    card.classList.add('show');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', revealCards);
+        window.addEventListener('load', revealCards);
+    </script>
+  <script src="main.js"></script>
+
+<?php if (!empty($alertScript)) : ?>
 <script>
-const cards = document.querySelectorAll('.product-card');
+document.addEventListener("DOMContentLoaded", function() {
+    <?php echo $alertScript; ?>
+});
+</script>
+<?php endif; ?>
 
-function revealCards() {
-  cards.forEach(card => {
-    const rect = card.getBoundingClientRect();
-    if (rect.top < window.innerHeight - 50) {
-      card.classList.add('show');
+<script>
+// Quantity increment
+function incrementQty(id) {
+    const input = document.getElementById("qty_" + id);
+    if (!input) return;
+
+    let value = parseInt(input.value) || 1;
+
+    if (value < 100) {
+        input.value = value + 1;
     }
-  });
 }
 
-window.addEventListener('scroll', revealCards);
-window.addEventListener('load', revealCards);
+// Quantity decrement
+function decrementQty(id) {
+    const input = document.getElementById("qty_" + id);
+    if (!input) return;
 
+    let value = parseInt(input.value) || 1;
+
+    if (value > 1) {
+        input.value = value - 1;
+    }
+}
 </script>
-<script src="main.js"></script>
+
 </body>
 </html>

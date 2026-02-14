@@ -1,8 +1,10 @@
 <?php
 session_start();
 
-$conn = mysqli_connect("localhost","root","","turfbookingsystem");
+$conn = mysqli_connect("localhost","root","","turfbookingsystem",3307);
 if (!$conn) die("Database connection failed.");
+
+$swal = "";
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $username = $_POST['username'];
@@ -14,29 +16,39 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $result = mysqli_stmt_get_result($stmt);
 
     if ($row = mysqli_fetch_assoc($result)) {
-    if (password_verify($password, $row['password']) || $password === $row['password']) {
-        $_SESSION['user_id'] = $row['user_id'];
-        $_SESSION['username'] = $row['username'];
-        
-        // Success alert + redirect
-        echo "<script>
-                alert('$username Login Successful!');
-                window.location.href='index.php';
-              </script>";
-        exit;
-    } else {
-        echo "<script>
-                alert('Invalid password!');
-                window.location.href='login.php';
-              </script>";
-    }
-} else {
-    echo "<script>
-            alert('User not found!');
-            window.location.href='login.php';
-          </script>";
-}
+        if (password_verify($password, $row['password']) || $password === $row['password']) {
+            $_SESSION['user_id'] = $row['user_id'];
+            $_SESSION['username'] = $row['username'];
 
+            $swal = "
+            Swal.fire({
+                icon: 'success',
+                title: 'Login Successful!',
+                text: '$username'
+            }).then(() => {
+                window.location.href='index.php';
+            });
+            ";
+        } else {
+            $swal = "
+            Swal.fire({
+                icon: 'error',
+                title: 'Invalid password!'
+            }).then(() => {
+                window.location.href='login.php';
+            });
+            ";
+        }
+    } else {
+        $swal = "
+        Swal.fire({
+            icon: 'warning',
+            title: 'User not found!'
+        }).then(() => {
+            window.location.href='login.php';
+        });
+        ";
+    }
 }
 ?>
 
@@ -48,6 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="./output.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <link rel="shortcut icon" href="./gallery/favicon.png" type="image/x-icon">
@@ -284,10 +297,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     <input type="text" name="username" required="required" />
                     <span>enter username</span>
                 </div>
-                <div class="input-bx">
-                    <input type="password" name="password" required="required" autocomplete="off"/>
-                    <span>enter password</span>
-                </div>
+<div class="input-bx">
+    <input type="password" name="password" id="password" required="required" autocomplete="off"/>
+    <span>enter password</span>
+    <i class="fa-solid fa-eye" id="togglePassword"
+       style="position:absolute; right:10px; top:50%; transform:translateY(-50%);
+       cursor:pointer; color:#666;"></i>
+</div>
+
    <button class="flex items-center justify-center px-5 py-2 bg-blue-200 text-blue-800 font-medium rounded-lg shadow hover:bg-blue-300 hover:scale-105 transition-transform duration-300 ease-in-out">
   <i class="fas fa-lock mr-2"></i>
   Log in
@@ -327,5 +344,30 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
   <script src="main.js"></script>
   <script src="all-animation.js"></script>
+<?php if(!empty($swal)) { ?>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    <?php echo $swal; ?>
+});
+</script>
+<?php } ?>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const password = document.getElementById("password");
+    const toggle = document.getElementById("togglePassword");
+
+    if (toggle) {
+        toggle.addEventListener("click", function () {
+            const type = password.type === "password" ? "text" : "password";
+            password.type = type;
+
+            this.classList.toggle("fa-eye");
+            this.classList.toggle("fa-eye-slash");
+        });
+    }
+});
+</script>
+
 </body>
 </html>

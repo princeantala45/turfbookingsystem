@@ -4,7 +4,7 @@ $user = "root";
 $password = "";
 $dbname = "turfbookingsystem";
 
-$conn = mysqli_connect($host, $user, $password, $dbname);
+$conn = mysqli_connect($host, $user, $password, $dbname,3307);
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }

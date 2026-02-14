@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Aug 25, 2025 at 07:46 PM
+-- Host: 127.0.0.1:3307
+-- Generation Time: Feb 12, 2026 at 04:33 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -38,10 +38,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`id`, `username`, `password`) VALUES
-(1, 'prince', 'Prince@123'),
-(2, 'aryan', 'Aryan@123'),
-(3, 'keval', 'Keval@123'),
-(4, 'shrut', 'Shrut@123');
+(1, 'Prince', 'Prince@123');
 
 -- --------------------------------------------------------
 
@@ -67,7 +64,8 @@ CREATE TABLE `card_data` (
 --
 
 INSERT INTO `card_data` (`id`, `user_id`, `username`, `cardholdername`, `cardnumber`, `expiry`, `cvv`, `turfs`, `payment_reference`, `payment_date`) VALUES
-(9, 16, 'princeantala', 'antala prince hiteshbhai', '456654234432', '09/32', '234', 'football', 'FOOTBALL58691', '2025-08-25 23:14:12');
+(9, 16, 'princeantala', 'antala prince hiteshbhai', '456654234432', '09/32', '234', 'football', 'FOOTBALL58691', '2025-08-25 23:14:12'),
+(10, 16, 'princeantala', 'antala prince hiteshbhai', '234554345432', '02/28', '333', 'football', 'FOOTBALL95423', '2026-02-12 18:07:30');
 
 -- --------------------------------------------------------
 
@@ -89,7 +87,12 @@ CREATE TABLE `contact` (
 --
 
 INSERT INTO `contact` (`user_id`, `name`, `email`, `mobile`, `message`, `message_date`) VALUES
-(16, 'Prince antala', 'princeantala45@gmail', '7990972794', 'this is demo message for contact page.', '2025-08-24 14:57:49');
+(16, 'Prince antala', 'princeantala45@gmail', '7990972794', 'this is demo message for contact page.', '2025-08-24 14:57:49'),
+(16, 'prince antala', 'princeantala45@gmail', '3465754323456', 'weiotlkfnksjzfxmcoisdljkfzm,x.c', '2026-02-12 13:41:31'),
+(16, 'Prince antala', 'princeantala45@gmail', '7990972794', 'wsefdgbvfdsdcx ', '2026-02-12 16:10:06'),
+(16, 'Prince antala', 'princeantala45@gmail', '7990972794', 'wsefdgbvfdsdcx ', '2026-02-12 16:11:45'),
+(16, 'Infosys', 'princeantala45@gmail', '7990972794', 'demo', '2026-02-12 16:12:29'),
+(16, 'Example', 'example@gmail.com', '7903235643', 'example', '2026-02-12 16:15:25');
 
 -- --------------------------------------------------------
 
@@ -194,7 +197,10 @@ CREATE TABLE `product_shopping` (
 INSERT INTO `product_shopping` (`id`, `user_id`, `fullname`, `email`, `mobile`, `state`, `city`, `pincode`, `address`, `product_names`, `subtotal`, `sgst`, `cgst`, `grand_total`, `payment_method`, `payment_ref`, `created_at`) VALUES
 (23, 16, 'antala prince hiteshbhai', 'princeantala45@gmail.com', '7990972794', 'gujarat', 'dhoraji', '360410', 'kharawad plote , near bus station , dhoraji', 'Badminton Racket (x1), Puma Shoes (x1)', 18499.00, 1664.91, 1664.91, 21828.82, 'card', 'Product-5751', '2025-08-24 18:24:25'),
 (24, 16, 'antala prince hiteshbhai', 'demo@gmail.com', '9999999999', 'gujarat', 'kadi', '333333', 'sv campus , ayodhya nagar , kadi ', 'Ceat Bat (x1), Cricket White Ball (x1)', 45949.00, 4135.41, 4135.41, 54219.82, 'upi', 'Product-8514', '2025-08-24 18:25:57'),
-(25, 16, 'antala prince hiteshbhai', 'demo@gmail.com', '9898989898', 'gujarat', 'kadi', '543433', 's v campus kadi', 'Golf Club (x1), Sport Bag (x1)', 6999.00, 629.91, 629.91, 8258.82, 'cod', 'Product-2095', '2025-08-24 18:26:59');
+(25, 16, 'antala prince hiteshbhai', 'demo@gmail.com', '9898989898', 'gujarat', 'kadi', '543433', 's v campus kadi', 'Golf Club (x1), Sport Bag (x1)', 6999.00, 629.91, 629.91, 8258.82, 'cod', 'Product-2095', '2025-08-24 18:26:59'),
+(35, 16, 'Prince antala', 'princeantala45@gmail.com', '3456753245', 'gujrata', 'dhoraji', '345423', 'dhoraji', 'Javelin Stick (x5), Cricket Red Ball (x4)', 26196.00, 2357.64, 2357.64, 30911.28, 'upi', 'Product-5858', '2026-02-12 18:10:37'),
+(36, 16, 'Rohit Sharma', 'princeantala45@gmail.com', '7990972794', 'Gujarat', 'kathrota', '343434', 'trdghmb', 'SG Bat (x2), SS Bat (x1)', 27648.00, 2488.32, 2488.32, 32624.64, 'upi', 'Product-5253', '2026-02-12 19:19:28'),
+(37, 16, 'Rohit Sharma', 'ram@gmail.com', '7990972794', 'Gujarat', 'Dhoraji', '360410', 'dhoraji rajkot', 'Golf Club (x6)', 24000.00, 2160.00, 2160.00, 28320.00, 'cod', 'Product-8691', '2026-02-12 20:48:06');
 
 -- --------------------------------------------------------
 
@@ -217,7 +223,9 @@ CREATE TABLE `product_upi_data` (
 --
 
 INSERT INTO `product_upi_data` (`id`, `user_id`, `username`, `upiid`, `product`, `payment_ref`, `payment_date`) VALUES
-(4, 16, 'princeantala', 'princeantala45@upi', 'Ceat Bat (x1), Cricket White Ball (x1)', 'Product-8514', '2025-08-24 18:25:57');
+(4, 16, 'princeantala', 'princeantala45@upi', 'Ceat Bat (x1), Cricket White Ball (x1)', 'Product-8514', '2025-08-24 18:25:57'),
+(5, 16, 'princeantala', 'princeantala45@upi', 'Javelin Stick (x5), Cricket Red Ball (x4)', 'Product-5858', '2026-02-12 18:10:37'),
+(6, 16, 'princeantala', 'princeantala45@upi', 'SG Bat (x2), SS Bat (x1)', 'Product-5253', '2026-02-12 19:19:28');
 
 -- --------------------------------------------------------
 
@@ -239,7 +247,9 @@ CREATE TABLE `signup` (
 --
 
 INSERT INTO `signup` (`user_id`, `username`, `email`, `mobile`, `password`, `signup_date`) VALUES
-(16, 'princeantala', 'princeantala45@gmail.com', '7990972794', 'Prince@123', '2025-08-24 18:16:55');
+(16, 'princeantala', 'princeantala45@gmail.com', '7990972794', 'Prince@123', '2025-08-24 18:16:55'),
+(17, 'Demo', 'demo@gmail.com', '3456432345', 'Demo@123', '2026-02-12 18:16:41'),
+(18, 'demoo', 'princeantala@gmail.com', '2345643234', 'Demo@123', '2026-02-12 18:52:13');
 
 -- --------------------------------------------------------
 
@@ -276,7 +286,13 @@ CREATE TABLE `ticket` (
 INSERT INTO `ticket` (`booking_id`, `user_id`, `username`, `fullname`, `email`, `mobile`, `state`, `city`, `turfs`, `base_price`, `cgst`, `sgst`, `total_price`, `address`, `pincode`, `date`, `payment_method`, `booking_time`, `payment_reference`) VALUES
 (54, 16, 'princeantala', 'antala prince hiteshbhai', 'princeantala45@gmail', '7990972794', 'gujarat', 'dhoraji', 'cricket', 10000.00, 900.00, 900.00, 11800.00, 'kharawad plote , near bus station , dhoraji', '360410', '2025-09-01', 'card', '2025-08-24 18:20:52', 'CRICKET60497'),
 (55, 16, 'princeantala', 'antala prince hiteshbhai', 'princeantala7@gmail.', '7797979779', 'gujarat', 'dhoraji', 'tennis', 2500.00, 225.00, 225.00, 2950.00, 'kharawad plote , near bus station , dhoraji', '360410', '2025-09-03', 'upi', '2025-08-24 18:22:28', 'TENNIS92692'),
-(56, 16, 'princeantala', 'antala prince hiteshbhai', 'demo@gmail.com', '9999999999', 'gujarat', 'kadi', 'football', 5000.00, 450.00, 450.00, 5900.00, 'Sv campus , ayodhya nagar , kadi', '333333', '2025-08-26', 'cod', '2025-08-24 18:23:07', 'FOOTBALL26630');
+(56, 16, 'princeantala', 'antala prince hiteshbhai', 'demo@gmail.com', '9999999999', 'gujarat', 'kadi', 'football', 5000.00, 450.00, 450.00, 5900.00, 'Sv campus , ayodhya nagar , kadi', '333333', '2025-08-26', 'cod', '2025-08-24 18:23:07', 'FOOTBALL26630'),
+(67, 16, 'princeantala', 'Prince antala', 'hello@gmail.com', '7875546786', 'gujarat', 'dhoraji', 'volleyball', 2000.00, 180.00, 180.00, 2360.00, 'dhoraji', '234567', '2026-02-21', 'upi', '2026-02-12 17:54:40', 'VOLLEYBALL72589'),
+(68, 16, 'princeantala', 'Prince antala', 'princeantala45@gmail', '4356765456', 'gujarat', 'dhoraji', 'football', 5000.00, 450.00, 450.00, 5900.00, 'dhoraji', '345675', '2026-03-01', 'card', '2026-02-12 18:07:30', 'FOOTBALL95423'),
+(69, 16, 'princeantala', 'Prince antala', 'princeantala45@gmail', '7990972794', 'Gujarat', 'rajkot', 'volleyball', 2000.00, 180.00, 180.00, 2360.00, 'dhoraji', '343434', '2026-03-09', 'cod', '2026-02-12 18:52:53', 'VOLLEYBALL61648'),
+(70, 16, 'princeantala', 'Virat Kohli', 'princeantala45@gmail', '3434334345', 'edfgbcb', 'rajkot', 'volleyball', 2000.00, 180.00, 180.00, 2360.00, 'dhoraji', '360410', '2026-03-04', 'cod', '2026-02-12 18:56:29', 'VOLLEYBALL98106'),
+(71, 16, 'princeantala', 'Prince antala', 'hello@gmail.com', '2456782345', 'Gujarat', 'Dhoraji', 'volleyball', 2000.00, 180.00, 180.00, 2360.00, 'dhoraji', '451234', '2026-03-03', 'cod', '2026-02-12 18:59:50', 'VOLLEYBALL30766'),
+(72, 16, 'princeantala', 'Rohit Sharma', 'hello@gmail.com', '3434334234', 'Gujarat', 'Dhoraji', 'football', 5000.00, 450.00, 450.00, 5900.00, 'dhoraji', '360410', '2026-03-02', 'cod', '2026-02-12 19:07:39', 'FOOTBALL65795');
 
 -- --------------------------------------------------------
 
@@ -299,7 +315,8 @@ CREATE TABLE `upi` (
 --
 
 INSERT INTO `upi` (`id`, `user_id`, `username`, `upiid`, `turfs`, `payment_reference`, `payment_date`) VALUES
-(22, 16, 'princeantala', 'princeantala@upi', 'golf', 'GOLF37626', '2025-08-25 23:12:41');
+(22, 16, 'princeantala', 'princeantala@upi', 'golf', 'GOLF37626', '2025-08-25 23:12:41'),
+(24, 16, 'princeantala', 'princeantala45@upi', 'volleyball', 'VOLLEYBALL72589', '2026-02-12 17:54:40');
 
 --
 -- Indexes for dumped tables
@@ -385,7 +402,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `card_data`
 --
 ALTER TABLE `card_data`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `product`
@@ -403,31 +420,31 @@ ALTER TABLE `product_card_data`
 -- AUTO_INCREMENT for table `product_shopping`
 --
 ALTER TABLE `product_shopping`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `product_upi_data`
 --
 ALTER TABLE `product_upi_data`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `signup`
 --
 ALTER TABLE `signup`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `ticket`
 --
 ALTER TABLE `ticket`
-  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
 -- AUTO_INCREMENT for table `upi`
 --
 ALTER TABLE `upi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- Constraints for dumped tables

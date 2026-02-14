@@ -2,7 +2,7 @@
 session_start();
 
 // ---- Database Connection ----
-$conn = new mysqli("localhost", "root", "", "turfbookingsystem");
+$conn = new mysqli("localhost", "root", "", "turfbookingsystem",3307);
 if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
 
 // ------------------ Turf Booking ------------------

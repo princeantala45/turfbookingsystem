@@ -1,37 +1,65 @@
 <?php
-$conn = mysqli_connect("localhost", "root", "", "turfbookingsystem");
+$conn = mysqli_connect("localhost", "root", "", "turfbookingsystem",3307);
+
+$swal = "";
 
 if (!$conn) {
-    die("<script>alert('Database connection failed.');</script>");
+    $swal = "Swal.fire({icon:'error',title:'Database connection failed.'});";
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
     $username   = $_POST["username"];
     $email      = $_POST["email"];
     $mobile     = $_POST["mobile"];
     $password   = $_POST["password"];
     $repassword = $_POST["repassword"];
 
-    // Check if username already exists
     $checkUserQuery = "SELECT * FROM signup WHERE username = '$username'";
     $result = mysqli_query($conn, $checkUserQuery);
 
     if (mysqli_num_rows($result) > 0) {
-        echo "<script>alert('Username \"$username\" already exists. Please choose another.');</script>";
+
+        $swal = "Swal.fire({
+            icon:'warning',
+            title:'Username already exists',
+            text:'$username is already taken.'
+        });";
+
     } elseif ($password === $repassword) {
+
         $sql = "INSERT INTO signup (username, email, mobile, password) 
                 VALUES ('$username', '$email', '$mobile', '$password')";
         
         if (mysqli_query($conn, $sql)) {
-            echo "<script>alert('Signup successful!'); window.location.href='login.php';</script>";
+
+            $swal = "Swal.fire({
+                icon:'success',
+                title:'Signup Successful!'
+            }).then(function(){
+                window.location.href='login.php';
+            });";
+
         } else {
-            echo "<script>alert('Signup failed: " . mysqli_error($conn) . "');</script>";
+
+            $error = mysqli_error($conn);
+            $swal = "Swal.fire({
+                icon:'error',
+                title:'Signup Failed',
+                text:'$error'
+            });";
         }
+
     } else {
-        echo "<script>alert('Passwords do not match.');</script>";
+
+        $swal = "Swal.fire({
+            icon:'error',
+            title:'Passwords do not match.'
+        });";
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -40,6 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="./output.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <link rel="shortcut icon" href="./gallery/favicon.png" type="image/x-icon">
@@ -95,9 +124,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     pointer-events: none;
     transition: 0.6s;
   }
-
-  .input-bx input:valid ~ span,
-  .input-bx input:focus ~ span {
+  .input-bx input {
+    padding: 10px 45px 10px 10px; /* right space for eye */
+    width: 100%;
+}
+.togglePassword {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #666;
+    z-index: 10; /* VERY IMPORTANT */
+}
+  .input-bx input:focus ~ span,
+.input-bx input.has-value ~ span {
     color: #3742fa;
     transform: translateX(10px) translateY(-30px);
     font-size: 0.65rem;
@@ -105,7 +146,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     padding: 0 10px;
     background: #fff;
     letter-spacing: 0.1rem;
-  }
+}
+
 
   .input-bx input:valid,
   .input-bx input:focus {
@@ -307,25 +349,32 @@ function validateMobile(input) {
 }
 </script>
 
-  <div class="input-bx">
-    <input 
-    type="text" 
+<div class="input-bx">
+  <input 
+    type="password" 
     name="password"
     id="password"
     pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}" 
     required autocomplete="off" />
-    <span>ENTER PASSWORD</span>
-  </div>
+  <span>ENTER PASSWORD</span>
+  <i class="fa-solid fa-eye togglePassword"
+     style="position:absolute; right:10px; top:50%; transform:translateY(-50%);
+     cursor:pointer; color:#666;"></i>
+</div>
 
-  <div class="input-bx">
+<div class="input-bx">
   <input 
-    type="text" 
+    type="password" 
     name="repassword"
+    id="repassword"
     pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}" 
     required autocomplete="off" />
-    <span>RE-ENTER PASSWORD</span>
-
+  <span>RE-ENTER PASSWORD</span>
+  <i class="fa-solid fa-eye togglePassword"
+     style="position:absolute; right:10px; top:50%; transform:translateY(-50%);
+     cursor:pointer; color:#666;"></i>
 </div>
+
  
  <ul id="passwordmsg" class="text-sm space-y-1">
   <li id="length" class="text-gray-500">• At least 8 characters</li>
@@ -391,5 +440,32 @@ document.addEventListener("DOMContentLoaded", function () {
 
   <script src="main.js"></script>
   <script src="./all-animation.js"></script>
+  <?php if(!empty($swal)) { ?>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    <?php echo $swal; ?>
+});
+</script>
+<?php } ?>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const toggles = document.querySelectorAll(".togglePassword");
+
+    toggles.forEach(function(toggle) {
+        toggle.addEventListener("click", function () {
+            const input = this.parentElement.querySelector("input");
+
+            const type = input.type === "password" ? "text" : "password";
+            input.type = type;
+
+            this.classList.toggle("fa-eye");
+            this.classList.toggle("fa-eye-slash");
+        });
+    });
+});
+</script>
+
+
 </body>
 </html>

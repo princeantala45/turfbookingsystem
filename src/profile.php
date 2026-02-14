@@ -1,6 +1,6 @@
 <?php
 session_start();
-$conn = mysqli_connect("localhost", "root", "", "turfbookingsystem");
+$conn = mysqli_connect("localhost", "root", "", "turfbookingsystem", 3307);
 
 if (!$conn) {
   die("Connection failed: " . mysqli_connect_error());
@@ -13,18 +13,27 @@ if (!isset($_SESSION['username'])) {
 
 $username = $_SESSION['username'];
 
+$alertType = "";
+$alertMessage = "";
+
 // Handle profile update
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
   $email    = mysqli_real_escape_string($conn, $_POST['email']);
   $mobile   = mysqli_real_escape_string($conn, $_POST['mobile']);
   $password = mysqli_real_escape_string($conn, $_POST['password']);
 
-  $update_sql = "UPDATE signup SET email='$email', mobile='$mobile', password='$password' WHERE username='$username'";
+  // ✅ This was missing
+  $update_sql = "UPDATE signup 
+                 SET email='$email', mobile='$mobile', password='$password' 
+                 WHERE username='$username'";
+
   if (mysqli_query($conn, $update_sql)) {
-    echo "<script>alert('✅ Profile updated successfully!'); window.location.href='profile.php';</script>";
-    exit;
+      $alertType = "success";
+      $alertMessage = "Profile updated successfully!";
   } else {
-    echo "<script>alert('❌ Failed to update profile: " . mysqli_error($conn) . "');</script>";
+      $alertType = "error";
+      $alertMessage = "Failed to update profile: " . mysqli_error($conn);
   }
 }
 
@@ -44,6 +53,7 @@ $user = mysqli_fetch_assoc($result);
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <link rel="shortcut icon" href="./gallery/favicon.png" type="image/x-icon">
   <link rel="stylesheet" href="turf.css">
 </head>
@@ -167,5 +177,20 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
   
   <script src="main.js"></script>
+  <?php if (!empty($alertMessage)) : ?>
+<script>
+Swal.fire({
+    icon: '<?= $alertType ?>',
+    title: '<?= $alertType === "success" ? "Success" : "Error" ?>',
+    text: '<?= $alertMessage ?>',
+    confirmButtonColor: '#2563eb'
+}).then(() => {
+    <?php if ($alertType === "success") : ?>
+        window.location.href = "profile.php";
+    <?php endif; ?>
+});
+</script>
+<?php endif; ?>
+
 </body>
 </html>

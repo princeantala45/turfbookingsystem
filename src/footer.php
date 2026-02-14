@@ -54,6 +54,6 @@
   <span class="mb-1">
     © <a href="index.php" class="text-green-600 hover:underline">turfbooking-system</a>
   </span>
-  <p class="m-0 text-center text-sm sm:text-base">All Rights Reserved | designed by princeantala45</p>
+  <p class="m-0 text-center text-sm sm:text-base">All Rights Reserved | Designed And Developed by Prince Antala</p>
 </div>
     </section>  
