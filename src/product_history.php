@@ -168,10 +168,20 @@ View Invoice
 
 <div class="text-center mt-10 px-4">
 <p class="text-gray-500 text-base sm:text-lg">No product orders found.</p>
-<a href="product.php"
-class="mt-4 inline-block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">
-Browse Products
-</a>
+<div class="pt-4 flex justify-center md:justify-center">
+            <a href="product.php">
+              <button type="submit" class="cssbuttons-io-button">
+                Browse
+                <div class="icon1">
+                  <svg height="24" width="24" viewBox="0 0 24 24">
+                    <path d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
+                      fill="currentColor"></path>
+                  </svg>
+                </div>
+              </button>
+            </a>
+          </div>
 </div>
 
 <?php endif; ?>
