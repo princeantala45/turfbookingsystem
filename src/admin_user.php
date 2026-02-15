@@ -1,13 +1,16 @@
 <?php
-$host = "localhost";
-$user = "root";
-$password = "";
-$dbname = "turfbookingsystem";
 
-$conn = mysqli_connect($host, $user, $password, $dbname);
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
+$host = $_ENV['DB_HOST'];
+$user = $_ENV['DB_USER'];
+$pass = $_ENV['DB_PASS'];
+$db   = $_ENV['DB_NAME'];
+
+$conn = new mysqli($host, $user, $pass, $db);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
+
 
 // Handle user deletion
 if (isset($_GET['delete'])) {

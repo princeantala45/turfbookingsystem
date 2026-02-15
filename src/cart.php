@@ -16,9 +16,18 @@ if (!isset($_SESSION['username'])) {
   exit();
 }
 
-$conn = mysqli_connect("localhost", "root", "", "turfbookingsystem");
-if (!$conn)
-  die("DB error: " . mysqli_connect_error());
+
+
+$host = $_ENV['DB_HOST'];
+$user = $_ENV['DB_USER'];
+$pass = $_ENV['DB_PASS'];
+$db   = $_ENV['DB_NAME'];
+
+$conn = new mysqli($host, $user, $pass, $db);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
 if (!isset($_SESSION['cart']))
   $_SESSION['cart'] = [];

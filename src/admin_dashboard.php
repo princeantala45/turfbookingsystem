@@ -2,11 +2,19 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// DB connect
-$conn = mysqli_connect("localhost", "root", "", "turfbookingsystem");
-if (!$conn) {
-    die("DB Connection failed: " . mysqli_connect_error());
+
+$host = $_ENV['DB_HOST'];
+$user = $_ENV['DB_USER'];
+$pass = $_ENV['DB_PASS'];
+$db   = $_ENV['DB_NAME'];
+
+$conn = new mysqli($host, $user, $pass, $db);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
+
+
 
 // safe scalar helper
 function scalar($conn, $sql) {
