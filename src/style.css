@@ -188,6 +188,23 @@ html{
   display: none;
   font-size: 30px;
 }
+  details > div {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+  }
+
+  details[open] > div {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+
+  details > div > p {
+    overflow: hidden;
+  }
+
+
 .cssbuttons-io-button {
     background: green;
     color: white;

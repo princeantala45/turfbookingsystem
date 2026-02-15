@@ -17,7 +17,7 @@
                 </a>
             </div>
         </div>
-        <hr style="border-color: black;">
+        <hr style="border-color: black;margin:0rem;">
         <div class="footer">
             <div class="box-1">
                 <h6 class="font-bold">TURF BOOKING</h6>

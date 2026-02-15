@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 15, 2026 at 11:24 AM
+-- Generation Time: Feb 15, 2026 at 02:37 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -81,31 +81,6 @@ CREATE TABLE `contact` (
   `message` varchar(255) NOT NULL,
   `message_date` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `contact`
---
-
-INSERT INTO `contact` (`user_id`, `name`, `email`, `mobile`, `message`, `message_date`) VALUES
-(16, 'Prince antala', 'princeantala45@gmail', '7990972794', 'this is demo message for contact page.', '2025-08-24 14:57:49'),
-(16, 'prince antala', 'princeantala45@gmail', '3465754323456', 'weiotlkfnksjzfxmcoisdljkfzm,x.c', '2026-02-12 13:41:31'),
-(16, 'Prince antala', 'princeantala45@gmail', '7990972794', 'wsefdgbvfdsdcx ', '2026-02-12 16:10:06'),
-(16, 'Prince antala', 'princeantala45@gmail', '7990972794', 'wsefdgbvfdsdcx ', '2026-02-12 16:11:45'),
-(16, 'Infosys', 'princeantala45@gmail', '7990972794', 'demo', '2026-02-12 16:12:29'),
-(16, 'Example', 'example@gmail.com', '7903235643', 'example', '2026-02-12 16:15:25'),
-(16, 'Prince antala', 'princeantala45@gmail', '7990972794', 'this is demo message for contact page.', '2025-08-24 14:57:49'),
-(16, 'prince antala', 'princeantala45@gmail', '3465754323456', 'weiotlkfnksjzfxmcoisdljkfzm,x.c', '2026-02-12 13:41:31'),
-(16, 'Prince antala', 'princeantala45@gmail', '7990972794', 'wsefdgbvfdsdcx ', '2026-02-12 16:10:06'),
-(16, 'Prince antala', 'princeantala45@gmail', '7990972794', 'wsefdgbvfdsdcx ', '2026-02-12 16:11:45'),
-(16, 'Infosys', 'princeantala45@gmail', '7990972794', 'demo', '2026-02-12 16:12:29'),
-(16, 'Example', 'example@gmail.com', '7903235643', 'example', '2026-02-12 16:15:25'),
-(16, 'Prince antala', 'princeantala45@gmail', '7990972794', 'this is demo message for contact page.', '2025-08-24 14:57:49'),
-(16, 'prince antala', 'princeantala45@gmail', '3465754323456', 'weiotlkfnksjzfxmcoisdljkfzm,x.c', '2026-02-12 13:41:31'),
-(16, 'Prince antala', 'princeantala45@gmail', '7990972794', 'wsefdgbvfdsdcx ', '2026-02-12 16:10:06'),
-(16, 'Prince antala', 'princeantala45@gmail', '7990972794', 'wsefdgbvfdsdcx ', '2026-02-12 16:11:45'),
-(16, 'Infosys', 'princeantala45@gmail', '7990972794', 'demo', '2026-02-12 16:12:29'),
-(16, 'Example', 'example@gmail.com', '7903235643', 'example', '2026-02-12 16:15:25'),
-(16, 'prince', 'primceajnsmx@dsc.com', '2345678976', '34refdvc \r\n\r\n', '2026-02-15 10:44:49');
 
 -- --------------------------------------------------------
 
@@ -204,6 +179,15 @@ CREATE TABLE `product_shopping` (
   `status` varchar(50) DEFAULT 'Processing'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `product_shopping`
+--
+
+INSERT INTO `product_shopping` (`id`, `user_id`, `fullname`, `email`, `mobile`, `state`, `city`, `pincode`, `address`, `product_names`, `subtotal`, `sgst`, `cgst`, `grand_total`, `payment_method`, `payment_ref`, `created_at`, `status`) VALUES
+(9, 16, 'Prince antala', 'princeantala45@gmail.com', '7990972794', 'wefsvc ', 'rajkot', '343434', 'erdfvc', 'SG Bat (x1), SS Bat (x1)', 1764.00, 158.76, 158.76, 2081.52, 'upi', 'Product-6753', '2026-02-15 18:29:23', 'Processing'),
+(10, 16, 'Rohit Sharma', 'princeantala45@gmail.com', '7990972794', 'wefsvc ', 'rajkot', '343434', 'sdfvc ', 'SG Bat (x1), Golf Club (x1)', 1399.00, 125.91, 125.91, 1650.82, 'upi', 'Product-7432', '2026-02-15 18:31:05', 'Processing'),
+(11, 19, 'Prince antala', 'hello@gmail.com', '3434334234', 'wefsvc ', 'kathrota', '343434', 'wefgn', 'SS Bat (x1)', 765.00, 68.85, 68.85, 902.70, 'cod', 'Product-1033', '2026-02-15 19:04:08', 'Cancelled');
+
 -- --------------------------------------------------------
 
 --
@@ -250,7 +234,8 @@ CREATE TABLE `signup` (
 --
 
 INSERT INTO `signup` (`user_id`, `username`, `email`, `mobile`, `password`, `signup_date`) VALUES
-(16, 'princeantala', 'princeantala45@gmail.com', '7990972794', 'Prince@123', '2025-08-24 18:16:55');
+(16, 'princeantala', 'princeantala45@gmail.com', '7990972794', 'Prince@123', '2025-08-24 18:16:55'),
+(19, 'Demo', 'demo@gmail.com', '7990972794', 'Demo@123', '2026-02-15 18:36:33');
 
 -- --------------------------------------------------------
 
@@ -408,13 +393,13 @@ ALTER TABLE `product_card_data`
 -- AUTO_INCREMENT for table `product_shopping`
 --
 ALTER TABLE `product_shopping`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `signup`
 --
 ALTER TABLE `signup`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `ticket`

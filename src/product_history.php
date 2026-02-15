@@ -153,7 +153,7 @@ Cancel Order
 
 <a href="product_invoice.php?id=<?= $row['id']; ?>"
 class="w-full sm:w-auto text-center bg-blue-600 text-white px-3 py-2 rounded text-xs sm:text-sm hover:bg-blue-700 transition">
-Download Invoice
+View Invoice
 </a>
 
 </div>
