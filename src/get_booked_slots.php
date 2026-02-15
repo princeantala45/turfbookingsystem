@@ -1,25 +1,30 @@
 <?php
+$conn = mysqli_connect("localhost", "root", "", "turfbookingsystem");
 
-$conn = mysqli_connect("localhost", "root", "", "turfbookingsystem", 3307);
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
 
 $date = $_POST['date'] ?? '';
 $turf = $_POST['turf'] ?? '';
 
+$stmt = $conn->prepare("
+    SELECT time_slot 
+    FROM ticket 
+    WHERE date = ? 
+    AND turfs = ? 
+    AND status = 'Booked'
+");
+
+$stmt->bind_param("ss", $date, $turf);
+$stmt->execute();
+$result = $stmt->get_result();
+
 $booked = [];
 
-if ($date && $turf) {
-
-    $date = mysqli_real_escape_string($conn, $date);
-    $turf = mysqli_real_escape_string($conn, $turf);
-
-    $result = mysqli_query($conn,
-        "SELECT time_slot FROM ticket 
-         WHERE date='$date' AND turfs='$turf'"
-    );
-
-    while ($row = mysqli_fetch_assoc($result)) {
-        $booked[] = $row['time_slot'];
-    }
+while ($row = $result->fetch_assoc()) {
+    $booked[] = trim($row['time_slot']);
 }
 
 echo json_encode($booked);
+?>

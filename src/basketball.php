@@ -55,7 +55,7 @@
         <span>(209)</span>
       </div>
       <p class="text-green-600" style="font-size: 19px;">Avalible</p>
-      <p>₹4500(per day)</p>
+      <p>₹450(per hour)</p>
       <hr class="border-gray-300">
       <div class="space-y-2">
         <p class="text-xl font-semibold">Description</p>
@@ -63,9 +63,21 @@
         <p>Ground Length (In Feet):60</p>
         <p class="text-justify">Basketball is a fun and exciting game where two teams compete to throw the ball into the hoop. It’s all about running, bouncing the ball, and taking your best shot! Whether you're just playing for fun with friends or looking to stay active, basketball is a great way to enjoy some energy-packed time. Our turf offers a safe and comfortable space to play-perfect for beginners and regular players alike. So grab a ball, call your team, and get ready to shoot some hoops!</p>
     <!-- ------------------------------------------------book-button------------------------------- -->
-<a href="booking.php">
-<button class="px-6 mt-5 py-2 bg-gradient-to-r from-blue-500 to-blue-700 text-white font-semibold rounded-full shadow-md hover:from-blue-600 hover:to-blue-800 hover:shadow-lg transition duration-300">BOOK NOW</button>
-</a>
+<div class="pt-4 flex justify-start">
+    <a href="booking.php">
+      <button type="submit" name="add_to_cart"  class="cssbuttons-io-button">
+        BOOK NOW
+        <div class="icon1">
+            <svg height="24" width="24" viewBox="0 0 24 24">
+                <path d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
+                      fill="currentColor"></path>
+            </svg>
+        </div>
+    </button>
+    </a>
+</div>
+
 
  </div>
     </div>

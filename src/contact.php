@@ -16,7 +16,7 @@ if (!isset($_SESSION['username'])) {
     $redirect = "login.php";
 } else {
 
-    $conn = mysqli_connect("localhost", "root", "", "turfbookingsystem", 3307);
+    $conn = mysqli_connect("localhost", "root", "", "turfbookingsystem");
 
     if (!$conn) {
         $status = "error";
@@ -177,7 +177,18 @@ if (!isset($_SESSION['username'])) {
                     Message (required)
                     <textarea name="message" rows="10" required></textarea>
                 </div>
-                    <button type="submit" name="submit">Send</button>
+                    <div class="pt-4 flex justify-start">
+      <button type="submit" name="submit"  class="cssbuttons-io-button">
+        SEND
+        <div class="icon1">
+            <svg height="24" width="24" viewBox="0 0 24 24">
+                <path d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
+                      fill="currentColor"></path>
+            </svg>
+        </div>
+    </button>
+</div>
             </div>
         </div>
     </form>

@@ -57,7 +57,7 @@
         <span>(124)</span>
       </div>
       <p class="text-green-600" style="font-size: 19px;">Avalible</p>
-      <p>₹5000(per day)</p>
+      <p>₹500(per hour)</p>
       <hr class="border-gray-300">
       <div class="space-y-2">
         <p class="text-xl font-semibold">Description</p>
@@ -65,9 +65,20 @@
         <p>Ground Length (In Feet):60</p>
                     <p class="text-justify">The Turf Booking System is designed for baseball enthusiasts, including casual players, competitive athletes, and clubs looking to manage their facilities efficiently. It caters to individuals and teams, making it suitable for both recreational and professional use.</p>
     <!-- ------------------------------------------------book-button------------------------------- -->
-<a href="booking.php">
-<button class="px-6 mt-5 py-2 bg-gradient-to-r from-blue-500 to-blue-700 text-white font-semibold rounded-full shadow-md hover:from-blue-600 hover:to-blue-800 hover:shadow-lg transition duration-300">BOOK NOW</button>
-</a>
+<div class="pt-4 flex justify-start">
+    <a href="booking.php">
+      <button type="submit" name="add_to_cart"  class="cssbuttons-io-button">
+        BOOK NOW
+        <div class="icon1">
+            <svg height="24" width="24" viewBox="0 0 24 24">
+                <path d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
+                      fill="currentColor"></path>
+            </svg>
+        </div>
+    </button>
+    </a>
+</div>
 
  </div>
     </div>

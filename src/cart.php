@@ -16,7 +16,7 @@ if (!isset($_SESSION['username'])) {
     exit();
 } 
 
-$conn = mysqli_connect("localhost", "root", "", "turfbookingsystem",3307);
+$conn = mysqli_connect("localhost", "root", "", "turfbookingsystem");
 if (!$conn) die("DB error: " . mysqli_connect_error());
 
 if (!isset($_SESSION['cart'])) $_SESSION['cart'] = [];
@@ -85,13 +85,19 @@ if (!empty($_SESSION['cart'])) {
 <body class="bg-gray-50">
 <?php include "header.php"; ?>
 
+<section>
+        <div class="line-turf">
+            <p>Home /</p>
+            <p style="margin-left: 5px;"> Cart</p>
+        </div>
+     </section>
 <div class="max-w-7xl mx-auto py-10 px-4">
-  <h2 class="text-3xl font-bold text-center text-indigo-700 mb-8">🛒 Your Cart</h2>
+  <h2 class="text-3xl font-bold text-center text-green-700 mb-8">🛒 Your Cart</h2>
 
   <?php if (empty($cart_products)): ?>
     <div class="text-center bg-white p-10 shadow rounded">
       <p class="text-gray-600">Cart is empty</p>
-      <a href="product.php" class="mt-4 inline-block bg-indigo-600 text-white px-4 py-2 rounded">Browse Products</a>
+      <a href="product.php" class="mt-4 inline-block bg-green-600 text-white px-4 py-2 rounded">Browse Products</a>
     </div>
   <?php else: ?>
     <div class="grid md:grid-cols-3 gap-6">
@@ -123,8 +129,34 @@ if (!empty($_SESSION['cart'])) {
         <div class="flex justify-between text-sm mb-2"><span>CGST (9%)</span><span>₹<?= number_format($cgst, 2) ?></span></div>
         <div class="flex justify-between font-bold text-lg border-t pt-2"><span>Total</span><span class="text-green-700">₹<?= number_format($grand_total, 2) ?></span></div>
         <div class="mt-6 flex flex-col gap-3">
-          <a href="checkout.php" class="bg-green-600 text-white py-2 text-center rounded hover:bg-green-700">Checkout</a>
-          <a href="product.php" class="bg-gray-200 py-2 text-center rounded hover:bg-gray-300">← Continue Shopping</a>
+          <div class="pt-4 flex justify-center">
+    <a href="checkout.php">
+      <button type="submit" name="add_to_cart"  class="cssbuttons-io-button">
+        Checkout
+        <div class="icon1">
+            <svg height="24" width="24" viewBox="0 0 24 24">
+                <path d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
+                      fill="currentColor"></path>
+            </svg>
+        </div>
+    </button>
+    </a>
+</div>
+          <div class="pt-4 flex justify-center">
+    <a href="product.php">
+      <button type="submit" name="add_to_cart"  class="cssbuttons-io-button">
+        Continue Shopping
+        <div class="icon1">
+            <svg height="24" width="24" viewBox="0 0 24 24">
+                <path d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
+                      fill="currentColor"></path>
+            </svg>
+        </div>
+    </button>
+    </a>
+</div>
         </div>
       </div>
     </div>

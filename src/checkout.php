@@ -17,7 +17,7 @@ if (!isset($_SESSION['username'])) {
 }
 
 
-$conn = mysqli_connect("localhost", "root", "", "turfbookingsystem",3307);
+$conn = mysqli_connect("localhost", "root", "", "turfbookingsystem");
 if (!$conn) die("Connection failed: " . mysqli_connect_error());
 
 $user_id = $_SESSION['user_id'];
@@ -42,7 +42,7 @@ if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0) {
     $total += $row['total_price'];
   }
 } else {
-$alertScript = "
+$alertScript = " 
 Swal.fire({
   icon: 'warning',
   title: 'Cart Empty',
@@ -83,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     VALUES 
     ('$user_id','$fullname','$email','$mobile','$state','$city','$pincode','$address','$product_names','$subtotal','$sgst','$cgst','$grand_total','$payment_method','$payment_ref')";
 
-  if (mysqli_query($conn, $sql)) {
+if (mysqli_query($conn, $sql)) {
     $order_id = mysqli_insert_id($conn);
 
     // Save Card
@@ -106,12 +106,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         (user_id, username, product,upiid, payment_ref) 
         VALUES ('$user_id','$username','$product_names','$upiid' ,'$payment_ref')");
     }
-
+unset($_SESSION['cart']);
 $alertScript = "
 Swal.fire({
   icon: 'success',
   title: 'Order Placed!',
-  html: 'Order ID: <b>$order_id</b><br>Payment Ref: <b>$payment_ref</b>'
+  html: 'Products : <b>$product_names</b><br>Payment Ref: <b>$payment_ref</b>'
 }).then(() => {
   window.location.href='product_history.php';
 });
@@ -162,7 +162,12 @@ Swal.fire({
 
 <body class="bg-gray-100">
   <?php include "header.php"; ?>
-
+<section>
+        <div class="line-turf">
+            <p>Home /</p>
+            <p style="margin-left: 5px;"> Checkout</p>
+        </div>
+     </section>
   <div class="max-w-4xl mx-auto mt-10 mb-20 p-6 rounded-2xl bg-white shadow-xl animate-fadeIn">
     <h2 class="text-3xl font-bold text-center text-indigo-700 mb-6">🧾 Checkout Summary</h2>
 
@@ -193,7 +198,7 @@ Swal.fire({
 "
         title="Full name must contain only alphabets" />
 
-      <input type="email" name="email" placeholder="Email" id="email" required class="border p-3 rounded focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500
+      <input type="email" name="email" style="text-transform:lowercase;" placeholder="Email" id="email" required class="border p-3 rounded focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500
 ">
       <input type="tel" name="mobile" id="mobile" placeholder="Mobile Number" required maxlength="10" class="border p-3 rounded focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500
 ">
@@ -240,9 +245,18 @@ Swal.fire({
       <input type="hidden" name="product_names" value="<?= htmlspecialchars($all_product_names) ?>">
 
       <div class="md:col-span-2 text-center mt-4">
-        <button type="submit" class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold shadow-md hover:shadow-lg transition">
-          ✅ Generate Bill & Save
-        </button>
+<div class="pt-4 flex justify-center">
+      <button type="submit" name="add_to_cart"  class="cssbuttons-io-button">
+        Checkout
+        <div class="icon1">
+            <svg height="24" width="24" viewBox="0 0 24 24">
+                <path d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
+                      fill="currentColor"></path>
+            </svg>
+        </div>
+    </button>
+</div>
       </div>
     </form>
   </div>

@@ -3,7 +3,7 @@ session_start();
 
 $alertScript = "";
 
-$conn = mysqli_connect("localhost", "root", "", "turfbookingsystem", 3307);
+$conn = mysqli_connect("localhost", "root", "", "turfbookingsystem");
 if (!$conn)
     die("Connection failed: " . mysqli_connect_error());
 
@@ -51,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $user_id = $user_data['user_id'];
 
             $fullname = clean($_POST['fullname'] ?? '', $conn);
-            $email = clean($_POST['email'] ?? '', $conn);
+           $email = strtolower(clean($_POST['email'] ?? '', $conn));
             $address = clean($_POST['address'] ?? '', $conn);
             $mobile = clean($_POST['mobile'] ?? '', $conn);
             $state = clean($_POST['state'] ?? '', $conn);
@@ -199,6 +199,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BOOKING DETAILS | TURFBOOKING SYSTEM</title>
     <link href="./output.css" rel="stylesheet">
+  <link rel="stylesheet" href="turf.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -225,6 +226,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 <body>
     <?php include "header.php" ?>
+    <section>
+    <div class="line-turf">
+      <p>Home /</p>
+      <p style="margin-left: 5px;"> Booking Details</p>
+    </div>
+  </section>
 
     <form method="POST" id="bookingForm" action="" class="max-w-2xl mx-auto rounded-2xl p-8 space-y-5 mt-10 mb-20"
         style="background-color:aliceblue;">
@@ -242,10 +249,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 class="w-full px-4 py-3 border rounded-md outline-none focus:ring-2 focus:ring-green-500 focus:border-green-600
  focus:scale-105 focus:shadow-lg transition-all duration-300 ease-in-out" />
 
-            <!-- Email (HTML5 handles this) -->
-            <input type="email" name="email" placeholder="Email" required
-                class="w-full px-4 py-3 border rounded-md outline-none focus:ring-2 focus:ring-green-500 focus:border-green-600
+<input type="email" name="email" placeholder="Email" required
+    oninput="this.value = this.value.toLowerCase();"
+        style="text-transform: lowercase;"
+    autocapitalize="none"
+    spellcheck="false"
+    class="w-full px-4 py-3 border rounded-md outline-none focus:ring-2 focus:ring-green-500 focus:border-green-600
  focus:scale-105 focus:shadow-lg transition-all duration-300 ease-in-out" />
+
+
 
             <!-- Mobile (Exactly 10 digits) -->
             <input type="text" name="mobile" placeholder="Mobile Number" required
@@ -392,23 +404,34 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         <div class="flex flex-col sm:flex-row gap-4 justify-between pt-4">
             <!-- Book Now Button -->
-            <button type="submit" class="w-full sm:w-auto px-6 py-3 font-semibold text-white rounded-md 
-               bg-gradient-to-r from-green-600 to-green-800
-hover:from-green-700 hover:to-green-900
+            <div class="pt-4 flex justify-start">
+      <button type="submit" class="cssbuttons-io-button">
+        BOOK NOW
+        <div class="icon1">
+            <svg height="24" width="24" viewBox="0 0 24 24">
+                <path d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
+                      fill="currentColor"></path>
+            </svg>
+        </div>
+    </button>
+</div>
 
-               transform hover:scale-105 transition-all duration-300 ease-in-out 
-               shadow-md hover:shadow-lg">
-                Book Now
-            </button>
 
             <!-- Reset Button -->
-            <button type="reset" class="w-full sm:w-auto px-6 py-3 text-black font-medium rounded-md 
-               bg-gradient-to-r from-gray-200 to-gray-300 
-               hover:from-gray-300 hover:to-gray-400 
-               transform hover:scale-105 transition-all duration-300 ease-in-out 
-               shadow hover:shadow-md">
-                Reset
-            </button>
+<div class="pt-4 flex justify-start">
+      <button type="reset" name="add_to_cart"  class="cssbuttons-io-button">
+        RESET FORM
+        <div class="icon1">
+            <svg height="24" width="24" viewBox="0 0 24 24">
+                <path d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
+                      fill="currentColor"></path>
+            </svg>
+        </div>
+    </button>
+</div>
+
         </div>
 
     </form>
@@ -523,65 +546,74 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const allSlots = generateSlots();
 
-    function loadSlots(bookedSlots = []) {
+   function loadSlots(bookedSlots = []) {
 
-        timeSlotsDiv.innerHTML = "";
+    timeSlotsDiv.innerHTML = "";
 
-        const normalizedBooked = bookedSlots.map(s => s.trim());
+    const selectedDate = dateInput.value;
+    const today = new Date();
+    const currentHour = today.getHours();
 
-        allSlots.forEach(slot => {
+    const normalizedBooked = bookedSlots.map(s => s.trim());
 
-            const normalizedSlot = slot.trim();
+    allSlots.forEach((slot, index) => {
 
-            const btn = document.createElement("button");
-            btn.type = "button";
-            btn.textContent = slot;
-            btn.className = "p-2 border rounded text-xs";
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.textContent = slot;
+        btn.className = "p-2 border rounded text-xs";
 
-            if (normalizedBooked.includes(normalizedSlot)) {
+        const isToday = selectedDate === today.toISOString().split('T')[0];
+        const isPastHour = isToday && index <= currentHour;
 
-                btn.classList.add("bg-red-500", "text-white", "cursor-not-allowed");
-                btn.disabled = true;
+        if (normalizedBooked.includes(slot.trim()) || isPastHour) {
 
-            } else {
+            btn.classList.add("bg-red-500", "text-white", "cursor-not-allowed");
+            btn.disabled = true;
 
-                btn.classList.add("bg-green-500", "text-white");
+        } else {
 
-                btn.onclick = () => {
+            btn.classList.add("bg-green-500", "text-white");
 
-                    selectedSlotInput.value = slot;
+            btn.onclick = () => {
 
-                    document.querySelectorAll("#timeSlots button")
-                        .forEach(b => b.classList.remove("ring-4", "ring-blue-400"));
+                selectedSlotInput.value = slot;
 
-                    btn.classList.add("ring-4", "ring-green-500");
-                };
-            }
+                document.querySelectorAll("#timeSlots button")
+                    .forEach(b => b.classList.remove("ring-4", "ring-green-500"));
 
-            timeSlotsDiv.appendChild(btn);
-        });
-    }
+                btn.classList.add("ring-4", "ring-green-500");
+            };
+        }
+
+        timeSlotsDiv.appendChild(btn);
+    });
+}
 
     // -------- FETCH BOOKED SLOTS --------
 
-    function fetchBookedSlots() {
+function fetchBookedSlots() {
 
-        const date = dateInput.value;
-        const turf = turfSelect.value;
+    const date = dateInput.value;
+    const turf = turfSelect.value;
 
-        if (!date || !turf) return;
-
-        fetch("get_booked_slots.php", {
-            method: "POST",
-            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: `date=${date}&turf=${turf}`
-        })
-        .then(res => res.json())
-        .then(data => loadSlots(data))
-        .catch(error => console.error("Error:", error));
+    if (!date || !turf) {
+        loadSlots(); // show all slots if not selected
+        return;
     }
 
-    dateInput.addEventListener("change", fetchBookedSlots);
+    fetch("get_booked_slots.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: `date=${date}&turf=${turf}`
+    })
+    .then(res => res.json())
+    .then(data => loadSlots(data))
+    .catch(error => {
+        console.error("Error:", error);
+        loadSlots(); // fallback
+    });
+}
 
     // -------- CONFIRMATION MODAL --------
 

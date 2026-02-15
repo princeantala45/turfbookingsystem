@@ -59,9 +59,20 @@ $dbname = "turfbookingsystem";
           <h1 class="slider-heading font-bold text-2xl sm:text-5xl md:text-5xl">Our All Turfs</h1>
 
           <p class="p" style="padding-top: 20px; padding-bottom: 20px; font-size: large;">Effortless booking for everyone</p>
-          <a href="turf.php">
-            <button class="button">BOOK NOW</button>
-          </a>
+          <div class="pt-4 flex justify-center md:justify-start">
+        <a href="turf.php">
+          <button type="submit" class="cssbuttons-io-button">
+          BOOK NOW
+          <div class="icon1">
+            <svg height="24" width="24" viewBox="0 0 24 24">
+              <path d="M0 0h24v24H0z" fill="none"></path>
+              <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
+                fill="currentColor"></path>
+            </svg>
+          </div>
+        </button>
+        </a>
+      </div>
         </div>
         <img src="./slider-1.png" alt="" class="image">
       </div>
@@ -70,9 +81,20 @@ $dbname = "turfbookingsystem";
         <div class="slider-box-info">
           <h1 class="font-bold text-2xl sm:text-5xl md:text-5xl">Our All Products</h1>
           <p style="padding-top: 20px; padding-bottom: 20px; font-size: large;">Effortless shopping for everyone</p>
-          <a href="product.php">
-            <button class="button">BOOK NOW</button>
-          </a>
+          <div class="pt-4 flex justify-center md:justify-start">
+        <a href="product.php">
+          <button type="submit" class="cssbuttons-io-button">
+          BUY NOW
+          <div class="icon1">
+            <svg height="24" width="24" viewBox="0 0 24 24">
+              <path d="M0 0h24v24H0z" fill="none"></path>
+              <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
+                fill="currentColor"></path>
+            </svg>
+          </div>
+        </button>
+        </a>
+      </div>
         </div>
         <img src="./slider-2.png" alt="">
       </div>

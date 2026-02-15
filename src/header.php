@@ -10,6 +10,22 @@
   width: 0;
   animation: typing 1.4s steps(20) forwards, blink 0.6s step-end infinite;
 }
+#loader {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.4); /* semi-transparent */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px); /* for Safari */
+  z-index: 9999;
+}
+
+#loader img {
+  width: 120px;
+}
+
 
 @keyframes typing {
   from { width: 0; }
@@ -20,25 +36,26 @@
   50% { border-color: transparent; }
 }
   </style>
-  
-<section>
-  <!-- Loader -->
+    <!-- Loader -->
 <div id="loader">
-  <img src="leaf-loader-CVgu4tmg.gif" alt="Loading..." class="loader-img">
+  <img src="leaf-loader-CVgu4tmg.gif" alt="Loading...">
   <p style="color:green;">Loading...</p>
 </div>
+
+<section>
 
    <!-- Header Section -->
     <div class="up-errow">
         <i class="fa-solid fa-angles-up" style="font-size: 20px;"></i>
   </div>
+
   <div class="menu">
         <i class="fa-solid fa-bars"></i>
     </div>
   <div class="container">
     <div class="nav-box-1">
       <a href="index.php">
-        <img class="w-30 pl-4 pt-2" src="./header-image-black.png" alt="">
+      <img class="w-30 pl-4 pt-2" src="./header-image-black.png" alt="">
       </a>
       <a href="index.php">
         <h1 class="typewriter text-2xl font-bold" style="color:#FF7518">TURFBOOKING SYSTEM</h1>
@@ -93,16 +110,22 @@ $username = $_SESSION['username'] ?? 'Guest';
 </div>
     </div>
 </section>
-<!-- <script>
-  window.addEventListener("load", function () {
-    document.getElementById("loader").classList.add("hide");
-  });
-</script> -->
 
 <script>
   window.addEventListener("load", function () {
+    const loader = document.getElementById("loader");
+
+    const minimumTime = 500; // 2 seconds
+
     setTimeout(function () {
-      document.getElementById("loader").classList.add("hide");
-    }, 1000); // 2000ms = 2 seconds
+      loader.style.opacity = "0";
+      loader.style.transition = "opacity 0.5s ease";
+
+      setTimeout(function () {
+        loader.style.display = "none";
+      }, 500);
+
+    }, minimumTime);
   });
 </script>
+

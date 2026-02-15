@@ -5,7 +5,7 @@ if (!isset($_SESSION['username'])) {
     exit();
 }
 
-$conn = mysqli_connect("localhost", "root", "", "turfbookingsystem",3307);
+$conn = mysqli_connect("localhost", "root", "", "turfbookingsystem");
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }

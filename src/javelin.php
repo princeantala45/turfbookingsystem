@@ -57,7 +57,7 @@
         <span>(2)</span>
       </div>
       <p class="text-green-500" style="font-size: 19px;">Avalible</p>
-      <p>₹1000(per day)</p>
+      <p>₹100(per hour)</p>
       <hr class="border-gray-300">
       <div class="space-y-2">
         <p class="text-xl font-semibold">Description</p>
@@ -65,9 +65,20 @@
         <p>Ground Length (In Feet):120</p>
         <p class="text-justify">Javelin Throw is an exciting and challenging track and field event that requires power, technique, and precision. The goal is simple: throw the javelin as far as possible with a single powerful throw. It's a great way to improve strength, coordination, and focus. Whether you're training for competition or just trying out something new, our turf provides a perfect space to practice and master the javelin throw in a safe and supportive environment. So, pick up the javelin, aim for the distance, and let your throw soar!</p>
     <!-- ------------------------------------------------book-button------------------------------- -->
-<a href="booking.php">
-<button class="px-6 mt-5 py-2 bg-gradient-to-r from-blue-500 to-blue-700 text-white font-semibold rounded-full shadow-md hover:from-blue-600 hover:to-blue-800 hover:shadow-lg transition duration-300">BOOK NOW</button>
-</a>
+<div class="pt-4 flex justify-start">
+    <a href="booking.php">
+      <button type="submit" name="add_to_cart"  class="cssbuttons-io-button">
+        BOOK NOW
+        <div class="icon1">
+            <svg height="24" width="24" viewBox="0 0 24 24">
+                <path d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
+                      fill="currentColor"></path>
+            </svg>
+        </div>
+    </button>
+    </a>
+</div>
 
  </div>
     </div>

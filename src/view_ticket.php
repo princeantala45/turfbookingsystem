@@ -1,6 +1,6 @@
 <?php
 session_start();
-$conn = mysqli_connect("localhost", "root", "", "turfbookingsystem", 3307);
+$conn = mysqli_connect("localhost", "root", "", "turfbookingsystem");
 
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
@@ -35,159 +35,186 @@ if ($result->num_rows == 0) {
 
 $row = $result->fetch_assoc();
 
-/* Example price */
 $price = 1000;
 $gst = $price * 0.18;
 $total = $price + $gst;
 
-/* QR Data (Full Invoice Details) */
 $qrData =
-"INVOICE\n" .
 "Invoice No: INV" . $row['booking_id'] . "\n" .
 "Turf: " . $row['turfs'] . "\n" .
 "Date: " . $row['date'] . "\n" .
+"Time Slot: " . $row['time_slot'] . "\n" .
 "Customer: " . $row['fullname'] . "\n" .
-"Mobile: " . $row['mobile'] . "\n" .
-"Payment Ref: " . $row['payment_reference'] . "\n" .
-"Total: ₹" . number_format($total,2) . "\n" .
-"Authorized By: Prince Antala";
+"Total: ₹" . number_format($total,2);
 
-/* Free QR API */
 $qrURL = "https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=" . urlencode($qrData);
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Invoice - INV<?= $row['booking_id']; ?></title>
-    <style>
-        body {
-            font-family: Arial;
-            background: #f3f3f3;
-            font-size: 14px;
-        }
-        .invoice {
-            width: 800px;
-            margin: 20px auto;
-            background: #fff;
-            padding: 25px;
-            box-shadow: 0 0 12px rgba(0,0,0,0.08);
-        }
-        .top-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .logo {
-            width: 120px;
-        }
-        .invoice-info {
-            text-align: right;
-        }
-        .section-title {
-            margin-top: 15px;
-            font-weight: bold;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 4px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 8px;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 6px;
-        }
-        th {
-            background: #f7f7f7;
-        }
-        .right {
-            text-align: right;
-        }
-        .total-row td {
-            font-weight: bold;
-            background: #fafafa;
-        }
-        .qr img {
-            width: 110px;
-            height: 110px;
-        }
-        .footer-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 20px;
-        }
-        .signature {
-            text-align: right;
-        }
-        .signature img {
-            width: 120px;
-        }
-        .print-btn {
-            text-align: center;
-            margin-top: 15px;
-        }
-        button {
-            padding: 8px 18px;
-            background: #232f3e;
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-size: 13px;
-        }
-        .top-actions {
+<title>Invoice - INV<?= $row['booking_id']; ?></title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+    padding: 20px;
+}
+
+.invoice {
+    width: 800px;
+    margin: auto;
+    background: #ffffff;
+    padding: 40px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid #2c3e50;
+    padding-bottom: 15px;
+}
+
+.company-info h2 {
+    margin: 0;
+    font-size: 22px;
+    color: #2c3e50;
+}
+
+.invoice-info {
     text-align: right;
-    margin-bottom: 10px;
 }
-.top-actions a {
-    text-decoration: none;
-    padding: 6px 12px;
-    margin-left: 5px;
-    font-size: 13px;
-    border-radius: 4px;
-    background: #232f3e;
-    color: white;
+
+.invoice-info h3 {
+    margin: 0;
+    font-weight: 600;
 }
-.top-actions a.profile {
-    background: #2563eb;
+
+.section-title {
+    margin-top: 30px;
+    font-size: 15px;
+    font-weight: bold;
+    color: #2c3e50;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 6px;
+}
+
+p {
+    margin: 6px 0;
+    font-size: 14px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th {
+    background: #f0f2f5;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+td {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+}
+
+.right {
+    text-align: right;
+}
+
+.total-row td {
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.footer-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    align-items: center;
+}
+
+.qr img {
+    width: 110px;
+}
+
+.signature {
+    text-align: right;
+}
+
+.signature img {
+    width: 120px;
+}
+.actions {
+    width: 800px;
+    margin: 20px auto;
+    display: flex;
+    justify-content: center; 
+    align-items: center;         
+    gap: 15px;                   
+}
+
+.actions > div {
+    display: flex;
+    gap: 15px;
+    /* align-items: ; */
 }
 @media print {
-    .top-actions {
-        display: none;
+    .actions {
+        display: none !important;
     }
 }
 
-        @media print {
-            .print-btn {
-                display: none;
-            }
-            body {
-                background: white;
-            }
-        }
-    </style>
+@media print {
+    body { background: white; }
+    .actions { display: none; }
+}
+</style>
 </head>
+
 <body>
 
-<div class="invoice">
+<div class="invoice" id="invoiceContent">
 
-    <!-- Logo + Invoice Info -->
-    <div class="top-header">
-        <img src="header-image-black.png" class="logo">
-
-        <div class="invoice-info">
-            <h3 style="margin:0;">Tax Invoice</h3>
-            <p style="margin:2px 0;"><strong>Invoice No:</strong> INV<?= $row['booking_id']; ?></p>
-            <p style="margin:2px 0;"><strong>Date:</strong> <?= date("d M Y"); ?></p>
+    <div class="header">
+    
+    <div style="display:flex; align-items:center; gap:15px;">        
+        <div class="company-info">
+            <h2>TurfBookingSystem</h2>
+            <p>SV Campus, Ayodhya Nagar</p>
+            <p>Kadi – 382715, Gujarat</p>
+            <p><strong>GSTIN:</strong> 24ABCDE1234F1Z5</p>
         </div>
     </div>
+        <img src="header-image-black.png" 
+     alt="Company Logo" 
+     style="width:150px; margin-bottom:10px;">
+
+
+    <div class="invoice-info">
+        <h3>TAX INVOICE</h3>
+        <p><strong>Invoice No:</strong> INV<?= $row['booking_id']; ?></p>
+        <p><strong>Date:</strong> <?= date("d M Y"); ?></p>
+        <p><strong>Payment Ref:</strong> <?= htmlspecialchars($row['payment_reference']); ?></p>
+    </div>
+
+</div>
 
     <div class="section-title">Billing Details</div>
-    <p style="margin:3px 0;"><strong>Name:</strong> <?= htmlspecialchars($row['fullname']); ?></p>
-    <p style="margin:3px 0;"><strong>Mobile:</strong> <?= htmlspecialchars($row['mobile']); ?></p>
-    <p style="margin:3px 0;"><strong>Address:</strong>
+    <p><strong>Name:</strong> <?= htmlspecialchars($row['fullname']); ?></p>
+    <p><strong>Mobile:</strong> <?= htmlspecialchars($row['mobile']); ?></p>
+    <p>
         <?= htmlspecialchars($row['address']); ?>,
         <?= htmlspecialchars($row['city']); ?>,
         <?= htmlspecialchars($row['state']); ?> -
@@ -199,13 +226,13 @@ $qrURL = "https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=" . urle
     <table>
         <tr>
             <th>Description</th>
-            <th>Time</th>
+            <th>Date & Time</th>
             <th>Status</th>
             <th class="right">Amount (₹)</th>
         </tr>
         <tr>
             <td><?= htmlspecialchars($row['turfs']); ?></td>
-            <td><?= date("d M Y h:i A", strtotime($row['booking_time'])); ?></td>
+            <td><?= htmlspecialchars($row['date']); ?><br><?= htmlspecialchars($row['time_slot']); ?></td>
             <td><?= ucfirst($row['status']); ?></td>
             <td class="right"><?= number_format($price, 2); ?></td>
         </tr>
@@ -219,30 +246,99 @@ $qrURL = "https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=" . urle
         </tr>
     </table>
 
-    <!-- QR + Signature Row -->
     <div class="footer-row">
-
         <div class="qr">
             <img src="<?= $qrURL; ?>" alt="QR Code">
         </div>
 
         <div class="signature">
-            <img src="sign.png">
-            <p style="margin:2px 0;"><strong>Prince Antala</strong></p>
-            <p style="margin:2px 0;">Authorized Signatory</p>
+            <img src="sign.png" alt="Signature">
+            <p><strong>Prince Antala</strong></p>
+            <p>Authorized Signatory</p>
         </div>
-
     </div>
 
-    <div class="print-btn">
-        <button onclick="window.print()">Download / Print</button>
-    </div>
-  <div class="top-actions">
-        <a href="index.php">Home</a>
-        <a href="history.php" class="profile">History</a>
-    </div>
 </div>
+
+<div class="actions">
+  <div class="pt-4 flex justify-center gap-3">
+
+    <!-- Download PDF -->
+    <button type="submit" onclick="downloadPDF()" class="cssbuttons-io-button">
+      Download PDF
+      <div class="icon1">
+        <svg height="24" width="24" viewBox="0 0 24 24">
+          <path d="M0 0h24v24H0z" fill="none"></path>
+          <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
+                fill="currentColor"></path>
+        </svg>
+      </div>
+    </button>
+
+<div class="pt-4 flex justify-start">
+    <a href="index.php" style="text-decoration:none;">
+      <button type="submit" name="add_to_cart"  class="cssbuttons-io-button">
+        HOME
+        <div class="icon1">
+            <svg height="24" width="24" viewBox="0 0 24 24">
+                <path d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
+                      fill="currentColor"></path>
+            </svg>
+        </div>
+    </button>
+    </a>
+</div>
+
+<div class="pt-4 flex justify-start">
+    <a style="text-decoration:none;" href="booking.php">
+      <button type="submit" name="add_to_cart"  class="cssbuttons-io-button">
+        HISTORY
+        <div class="icon1">
+            <svg height="24" width="24" viewBox="0 0 24 24">
+                <path d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
+                      fill="currentColor"></path>
+            </svg>
+        </div>
+    </button>
+    </a>
+</div>
+  </div>
+</div>
+
+<script>
+async function downloadPDF() {
+
+    const { jsPDF } = window.jspdf;
+    const element = document.getElementById("invoiceContent");
+
+    const canvas = await html2canvas(element, { scale: 2 });
+    const imgData = canvas.toDataURL("image/png");
+
+    const pdf = new jsPDF("p", "mm", "a4");
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
+
+    const imgWidth = pageWidth;
+    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+    let heightLeft = imgHeight;
+    let position = 0;
+
+    pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+    heightLeft -= pageHeight;
+
+    while (heightLeft > 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+    }
+
+    pdf.save("Invoice_INV<?= $row['booking_id']; ?>.pdf");
+}
+</script>
 
 </body>
 </html>
-

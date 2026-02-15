@@ -56,7 +56,7 @@
         <span>(18)</span>
       </div>
       <p class="text-green-600" style="font-size: 19px;">Avalible</p>
-      <p>₹1100(per day)</p>
+      <p>₹110(per hour)</p>
       <hr class="border-gray-300">
       <div class="space-y-2">
         <p class="text-xl font-semibold">Description</p>
@@ -64,9 +64,21 @@
         <p>Ground Length (In Feet):27</p>
         <p class="text-justify">Kho Kho is an exciting and fast-paced traditional Indian game that’s all about speed, agility, and teamwork. Played between two teams, one team tries to tag the players of the opposing team by chasing them, while the other team works to dodge and avoid being tagged. It’s a fantastic way to stay active, improve reflexes, and have loads of fun with friends. Our turf provides a smooth, safe surface ideal for playing Kho Kho, whether you’re practicing or organizing a friendly match. So, gather your team, get ready to run, and let the chase begin!</p>
     <!-- ------------------------------------------------book-button------------------------------- -->
-<a href="booking.php">
-<button class="px-6 mt-5 py-2 bg-gradient-to-r from-blue-500 to-blue-700 text-white font-semibold rounded-full shadow-md hover:from-blue-600 hover:to-blue-800 hover:shadow-lg transition duration-300">BOOK NOW</button>
-</a>
+<div class="pt-4 flex justify-start">
+    <a href="booking.php">
+      <button type="submit" name="add_to_cart"  class="cssbuttons-io-button">
+        BOOK NOW
+        <div class="icon1">
+            <svg height="24" width="24" viewBox="0 0 24 24">
+                <path d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
+                      fill="currentColor"></path>
+            </svg>
+        </div>
+    </button>
+    </a>
+</div>
+
 
  </div>
     </div>

@@ -45,7 +45,7 @@ if (!isset($_SESSION['cart']) || !is_array($_SESSION['cart'])) {
 }
 
 // Connect to database
-$conn = mysqli_connect("localhost", "root", "", "turfbookingsystem",3307);
+$conn = mysqli_connect("localhost", "root", "", "turfbookingsystem");
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
@@ -153,10 +153,12 @@ $qty = max(1, min(100, $qty));
                 $availability = htmlspecialchars($row['product_availability']); // 👈 new field
 echo '
 <div class="product-card bg-white border border-gray-200 
-            hover:border-blue-500 hover:shadow-xl 
-            transition-all duration-300 rounded-xl 
+            hover:border-2 hover:border-green-500 
+            hover:shadow-xl 
+            transition-all duration-300 rounded-2xl 
             flex flex-col overflow-hidden">
 
+    
     <!-- Product Image -->
     <div class="bg-gray-50 flex items-center justify-center p-6 h-56">
         <img src="../' . $image . '" 
@@ -206,7 +208,7 @@ echo '
             min="1" 
             max="100"
             class="w-14 text-center border border-gray-300 
-                   rounded-md py-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                   rounded-md py-1 focus:outline-none focus:ring-2 focus:ring-green-500">
 
         <button type="button"
             onclick="incrementQty(' . $id . ')"
@@ -218,18 +220,19 @@ echo '
 
     </div>
 
-    <!-- Add to Cart Button -->
-    <button type="submit" name="add_to_cart"
-        class="group w-full bg-blue-600 
-               hover:bg-blue-700 
-               text-white font-semibold 
-               py-2.5 rounded-lg 
-               transition-all duration-300 
-               shadow-sm hover:shadow-md 
-               active:scale-95">
-
+<div class="pt-4 flex justify-center">
+    <button type="submit" name="add_to_cart"  class="cssbuttons-io-button">
         Add to Cart
+        <div class="icon1">
+            <svg height="24" width="24" viewBox="0 0 24 24">
+                <path d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
+                      fill="currentColor"></path>
+            </svg>
+        </div>
     </button>
+</div>
+
 
 </form>
 
@@ -295,4 +298,5 @@ function decrementQty(id) {
 </script>
 
 </body>
+
 </html>
