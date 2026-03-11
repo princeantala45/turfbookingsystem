@@ -244,53 +244,53 @@ $dbname = "turfbookingsystem";
     </div>
   </section>
 
-<section class="py-16 px-4 bg-gray-50">
+<section class="py-10 sm:py-16 px-4 bg-gray-50">
   <div class="max-w-6xl mx-auto">
 
-    <div class="bg-[#f5eed4] rounded-3xl p-8 md:p-12">
+    <div class="bg-[#f5eed4] rounded-3xl p-6 sm:p-8 md:p-12">
 
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-8 text-center">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 text-center">
 
         <!-- Stat -->
-        <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-lg transition">
-          <i class="fa-solid fa-futbol text-orange-500 text-3xl mb-3"></i>
-          <h1 class="count text-4xl font-bold" data-target="10">0+</h1>
-          <p class="mt-2 text-gray-600">Sports</p>
+        <div class="bg-white rounded-xl p-5 sm:p-6 shadow-sm hover:shadow-lg transition">
+          <i class="fa-solid fa-futbol text-orange-500 text-2xl sm:text-3xl mb-3"></i>
+          <h1 class="count text-3xl sm:text-4xl font-bold" data-target="10">0+</h1>
+          <p class="mt-2 text-gray-600 text-sm sm:text-base">Sports</p>
         </div>
 
         <!-- Stat -->
-        <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-lg transition">
-          <i class="fa-solid fa-calendar-check text-green-500 text-3xl mb-3"></i>
-          <h1 class="count text-4xl font-bold" data-target="345545">0+</h1>
-          <p class="mt-2 text-gray-600">Sports sessions in last 12 months</p>
+        <div class="bg-white rounded-xl p-5 sm:p-6 shadow-sm hover:shadow-lg transition">
+          <i class="fa-solid fa-calendar-check text-green-500 text-2xl sm:text-3xl mb-3"></i>
+          <h1 class="count text-3xl sm:text-4xl font-bold" data-target="345545">0+</h1>
+          <p class="mt-2 text-gray-600 text-sm sm:text-base">Sports sessions in last 12 months</p>
         </div>
 
         <!-- Stat -->
-        <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-lg transition">
-          <i class="fa-solid fa-location-dot text-red-500 text-3xl mb-3"></i>
-          <h1 class="count text-4xl font-bold" data-target="160">0+</h1>
-          <p class="mt-2 text-gray-600">Cities</p>
+        <div class="bg-white rounded-xl p-5 sm:p-6 shadow-sm hover:shadow-lg transition">
+          <i class="fa-solid fa-location-dot text-red-500 text-2xl sm:text-3xl mb-3"></i>
+          <h1 class="count text-3xl sm:text-4xl font-bold" data-target="160">0+</h1>
+          <p class="mt-2 text-gray-600 text-sm sm:text-base">Cities</p>
         </div>
 
         <!-- Stat -->
-        <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-lg transition">
-          <i class="fa-solid fa-building-columns text-blue-500 text-3xl mb-3"></i>
-          <h1 class="count text-4xl font-bold" data-target="15">0+</h1>
-          <p class="mt-2 text-gray-600">Local Authorities</p>
+        <div class="bg-white rounded-xl p-5 sm:p-6 shadow-sm hover:shadow-lg transition">
+          <i class="fa-solid fa-building-columns text-blue-500 text-2xl sm:text-3xl mb-3"></i>
+          <h1 class="count text-3xl sm:text-4xl font-bold" data-target="15">0+</h1>
+          <p class="mt-2 text-gray-600 text-sm sm:text-base">Local Authorities</p>
         </div>
 
         <!-- Stat -->
-        <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-lg transition">
-          <i class="fa-solid fa-layer-group text-purple-500 text-3xl mb-3"></i>
-          <h1 class="count text-4xl font-bold" data-target="100">0+</h1>
-          <p class="mt-2 text-gray-600">Facilities</p>
+        <div class="bg-white rounded-xl p-5 sm:p-6 shadow-sm hover:shadow-lg transition">
+          <i class="fa-solid fa-layer-group text-purple-500 text-2xl sm:text-3xl mb-3"></i>
+          <h1 class="count text-3xl sm:text-4xl font-bold" data-target="100">0+</h1>
+          <p class="mt-2 text-gray-600 text-sm sm:text-base">Facilities</p>
         </div>
 
         <!-- Stat -->
-        <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-lg transition">
-          <i class="fa-solid fa-users text-cyan-500 text-3xl mb-3"></i>
-          <h1 class="count text-4xl font-bold" data-target="4500">0+</h1>
-          <p class="mt-2 text-gray-600">Active Customers</p>
+        <div class="bg-white rounded-xl p-5 sm:p-6 shadow-sm hover:shadow-lg transition">
+          <i class="fa-solid fa-users text-cyan-500 text-2xl sm:text-3xl mb-3"></i>
+          <h1 class="count text-3xl sm:text-4xl font-bold" data-target="4500">0+</h1>
+          <p class="mt-2 text-gray-600 text-sm sm:text-base">Active Customers</p>
         </div>
 
       </div>
