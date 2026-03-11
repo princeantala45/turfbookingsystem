@@ -61,7 +61,7 @@ $dbname = "turfbookingsystem";
           <p class="p" style="padding-top: 20px; padding-bottom: 20px; font-size: large;">Effortless booking for
             everyone</p>
           <div class="pt-4 flex justify-center md:justify-start">
-            <a href="turf.php">
+            <a href="turf.php" class="text-white no-underline hover:text-gray-200">
               <button type="submit" class="cssbuttons-io-button">
                 BOOK NOW
                 <div class="icon1">
@@ -83,7 +83,7 @@ $dbname = "turfbookingsystem";
           <h1 class="font-bold text-2xl sm:text-5xl md:text-5xl">Our All Products</h1>
           <p style="padding-top: 20px; padding-bottom: 20px; font-size: large;">Effortless shopping for everyone</p>
           <div class="pt-4 flex justify-center md:justify-start">
-            <a href="product.php">
+            <a href="product.php" class="text-white no-underline hover:text-gray-200">
               <button type="submit" class="cssbuttons-io-button">
                 BUY NOW
                 <div class="icon1">
@@ -143,11 +143,11 @@ $dbname = "turfbookingsystem";
   </style>
 
 
-  <section class="flex justify-center" style="overflow: hidden;">
+  <section class="flex justify-center pt-20" style="overflow: hidden;">
     <div class="flex flex-col justify-center items-center text-center w-1/1">
       <h1 id="welcome-h1" class="text-2xl pt-0 font-bold pt-20 sm:text-3xl"
         style="transform: translateY(70px); color: rgb(212, 120, 1);">Welcome to Turfbooking System</h1>
-      <div class="flex flex-col pl-5 pr-5 gap-5 text-justify text-xs sm:pl-20 sm:pr-20 sm:text-lg md:text-lg">
+      <div class="flex flex-col pl-5 pr-5 gap-1 text-justify text-xs sm:pl-20 sm:pr-20 sm:text-lg md:text-lg">
         <p style="transform: translateX(200px);" id="welcome-text1">
           TufrBooking is a cutting-edge booking management system designed to streamline the reservation process for
           businesses in the hospitality and travel sectors. Established in 2020, TufrBooking aims to enhance customer
@@ -244,45 +244,60 @@ $dbname = "turfbookingsystem";
     </div>
   </section>
 
-  <section class="p-10 sm:py-20">
-    <div class="max-w-6xl rounded-3xl mx-auto px-2" style="background-color: #f5eed4ff;">
-      <div class="flex flex-wrap justify-center gap-y-10 text-center text-black p-10">
+<section class="py-16 px-4 bg-gray-50">
+  <div class="max-w-6xl mx-auto">
 
-        <!-- Row 1 -->
-        <div class="w-full sm:w-1/3">
+    <div class="bg-[#f5eed4] rounded-3xl p-8 md:p-12">
+
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-8 text-center">
+
+        <!-- Stat -->
+        <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-lg transition">
+          <i class="fa-solid fa-futbol text-orange-500 text-3xl mb-3"></i>
           <h1 class="count text-4xl font-bold" data-target="10">0+</h1>
-          <p class="mt-2 text-lg">sports</p>
+          <p class="mt-2 text-gray-600">Sports</p>
         </div>
 
-        <div class="w-full sm:w-1/3">
+        <!-- Stat -->
+        <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-lg transition">
+          <i class="fa-solid fa-calendar-check text-green-500 text-3xl mb-3"></i>
           <h1 class="count text-4xl font-bold" data-target="345545">0+</h1>
-          <p class="mt-2 text-lg">Sports sessions in the past 12 months</p>
+          <p class="mt-2 text-gray-600">Sports sessions in last 12 months</p>
         </div>
 
-        <div class="w-full sm:w-1/3">
+        <!-- Stat -->
+        <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-lg transition">
+          <i class="fa-solid fa-location-dot text-red-500 text-3xl mb-3"></i>
           <h1 class="count text-4xl font-bold" data-target="160">0+</h1>
-          <p class="mt-2 text-lg">Cities</p>
+          <p class="mt-2 text-gray-600">Cities</p>
         </div>
 
-        <!-- Row 2 -->
-        <div class="w-full sm:w-1/3">
+        <!-- Stat -->
+        <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-lg transition">
+          <i class="fa-solid fa-building-columns text-blue-500 text-3xl mb-3"></i>
           <h1 class="count text-4xl font-bold" data-target="15">0+</h1>
-          <p class="mt-2 text-lg">local authorities</p>
+          <p class="mt-2 text-gray-600">Local Authorities</p>
         </div>
 
-        <div class="w-full sm:w-1/3">
+        <!-- Stat -->
+        <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-lg transition">
+          <i class="fa-solid fa-layer-group text-purple-500 text-3xl mb-3"></i>
           <h1 class="count text-4xl font-bold" data-target="100">0+</h1>
-          <p class="mt-2 text-lg">facilities</p>
+          <p class="mt-2 text-gray-600">Facilities</p>
         </div>
 
-        <div class="w-full sm:w-1/3">
+        <!-- Stat -->
+        <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-lg transition">
+          <i class="fa-solid fa-users text-cyan-500 text-3xl mb-3"></i>
           <h1 class="count text-4xl font-bold" data-target="4500">0+</h1>
-          <p class="mt-2 text-lg">Active customers</p>
+          <p class="mt-2 text-gray-600">Active Customers</p>
         </div>
 
       </div>
+
     </div>
-  </section>
+  </div>
+</section>
 
   <section class="md:pl-20 md:pr-20 pl-5 pr-5">
     <div class="w-full" style="height: 400px;">
@@ -341,85 +356,73 @@ $dbname = "turfbookingsystem";
     </div>
   </section>
 
-  <section class="py">
-    <div class="max-w-4xl mx-auto pb-10">
-      <h1 class="text-2xl font-bold sm:text-3xl text-center mt-12" style="margin-top: 60px; color: rgb(212, 120, 1);">
+<section class="py-16 bg-gray-100 px-4">
+  <div class="max-w-6xl mx-auto">
 
-        Frequently Asked Questions
+    <h1 class="text-3xl md:text-4xl font-bold text-center mb-12 text-orange-500">
+      Frequently Asked Questions
+    </h1>
 
-      </h1>
+    <div class="grid md:grid-cols-2 gap-6">
 
-      <div class="space-y-4 mt-8">
+      <!-- FAQ Item -->
+      <details class="bg-white rounded-lg border-l-4 border-green-500 p-5 shadow-sm hover:shadow-lg transition">
+        <summary class="flex items-center gap-3 cursor-pointer font-semibold text-gray-800 text-lg">
+          <i class="fa-solid fa-calendar-check text-green-500"></i>
+          How to book a turf?
+        </summary>
+        <p class="mt-3 text-gray-600 text-sm leading-relaxed">
+          Visit the website, choose your turf, select date and time slot, and complete the payment to confirm booking.
+        </p>
+      </details>
 
-        <!-- Question 1 -->
-        <details class="bg-white rounded-lg shadow-md p-5">
-          <summary class="cursor-pointer font-semibold text-green-700 text-lg">
-            How to book a turf?
-          </summary>
-          <div class="mt-3">
-            <p class="text-gray-600">
-              To book a turf, visit the website and select your preferred date and time slot.
-              Fill in the required details and proceed to payment. After successful payment,
-              your booking will be confirmed.
-            </p>
-          </div>
-        </details>
+      <!-- FAQ Item -->
+      <details class="bg-white rounded-lg border-l-4 border-blue-500 p-5 shadow-sm hover:shadow-lg transition">
+        <summary class="flex items-center gap-3 cursor-pointer font-semibold text-gray-800 text-lg">
+          <i class="fa-solid fa-cart-shopping text-blue-500"></i>
+          How to buy a product?
+        </summary>
+        <p class="mt-3 text-gray-600 text-sm leading-relaxed">
+          Browse products, select the item, add to cart, and proceed to checkout to complete your purchase.
+        </p>
+      </details>
 
-        <!-- Question 2 -->
-        <details class="bg-white rounded-lg shadow-md p-5">
-          <summary class="cursor-pointer font-semibold text-green-700 text-lg">
-            How to buy a product?
-          </summary>
-          <div class="mt-3">
-            <p class="text-gray-600">
-              Browse the product list, select your desired item, and click on Buy or Add to Cart.
-              Complete the payment process to confirm your order.
-            </p>
-          </div>
-        </details>
+      <!-- FAQ Item -->
+      <details class="bg-white rounded-lg border-l-4 border-purple-500 p-5 shadow-sm hover:shadow-lg transition">
+        <summary class="flex items-center gap-3 cursor-pointer font-semibold text-gray-800 text-lg">
+          <i class="fa-solid fa-user-plus text-purple-500"></i>
+          How to create an account?
+        </summary>
+        <p class="mt-3 text-gray-600 text-sm leading-relaxed">
+          Click Sign Up, fill in your name, email and password, then submit to create your account.
+        </p>
+      </details>
 
-        <!-- Question 3 -->
-        <details class="bg-white rounded-lg shadow-md p-5">
-          <summary class="cursor-pointer font-semibold text-green-700 text-lg">
-            How to create an account?
-          </summary>
-          <div class="mt-3">
-            <p class="text-gray-600">
-              Click on Sign Up and enter your basic details such as name, email, and password.
-              Once submitted, your account will be created successfully.
-            </p>
-          </div>
-        </details>
+      <!-- FAQ Item -->
+      <details class="bg-white rounded-lg border-l-4 border-red-500 p-5 shadow-sm hover:shadow-lg transition">
+        <summary class="flex items-center gap-3 cursor-pointer font-semibold text-gray-800 text-lg">
+          <i class="fa-solid fa-xmark text-red-500"></i>
+          How to cancel a booking?
+        </summary>
+        <p class="mt-3 text-gray-600 text-sm leading-relaxed">
+          Log in, open My Bookings, select the booking, and click cancel. Refund depends on policy.
+        </p>
+      </details>
 
-        <!-- Question 4 -->
-        <details class="bg-white rounded-lg shadow-md p-5">
-          <summary class="cursor-pointer font-semibold text-green-700 text-lg">
-            How to cancel a booking?
-          </summary>
-          <div class="mt-3">
-            <p class="text-gray-600">
-              Log in to your account, go to My Bookings, select the booking, and click Cancel.
-              Refunds will be processed according to the cancellation policy.
-            </p>
-          </div>
-        </details>
+      <!-- FAQ Item -->
+      <details class="bg-white rounded-lg border-l-4 border-yellow-500 p-5 shadow-sm hover:shadow-lg transition md:col-span-2">
+        <summary class="flex items-center gap-3 cursor-pointer font-semibold text-gray-800 text-lg">
+          <i class="fa-solid fa-credit-card text-yellow-500"></i>
+          How to make a payment?
+        </summary>
+        <p class="mt-3 text-gray-600 text-sm leading-relaxed">
+          Use debit card, credit card, net banking, or UPI to complete your payment securely.
+        </p>
+      </details>
 
-        <!-- Question 5 -->
-        <details class="bg-white rounded-lg shadow-md p-5">
-          <summary class="cursor-pointer font-semibold text-green-700 text-lg">
-            How to make a payment?
-          </summary>
-          <div class="mt-3">
-            <p class="text-gray-600">
-              Choose your preferred payment method such as debit card, credit card, net banking,
-              or UPI. After successful payment, confirmation will be shown.
-            </p>
-          </div>
-        </details>
-
-      </div>
     </div>
-  </section>
+  </div>
+</section>
 
 
   <!-- Footer Section -->

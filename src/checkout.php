@@ -86,26 +86,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 if (mysqli_query($conn, $sql)) {
     $order_id = mysqli_insert_id($conn);
 
-    // Save Card
-    if ($payment_method === 'card') {
-      $cardnumber = $_POST['cardnumber'];
-      $cardholdername = $_POST['cardholdername'];
-      $expiry = $_POST['expiry'];
-      $cvv = $_POST['cvv'];
+ // Save Card
+if ($payment_method === 'card') {
 
-      mysqli_query($conn, "INSERT INTO product_card_data 
-        (user_id, username, cardholdername, cardnumber, expiry, cvv, product, payment_ref) 
-        VALUES 
-        ('$user_id','$username','$cardholdername','$cardnumber','$expiry','$cvv','$product_names','$payment_ref')");
-    }
+    $cardnumber = $_POST['cardnumber'];
+    $cardholdername = $_POST['cardholdername'];
+    $expiry = $_POST['expiry'];
+    $cvv = $_POST['cvv'];
 
-    // Save UPI
-    if ($payment_method === 'upi') {
-      $upiid = $_POST['upi'];
-      mysqli_query($conn, "INSERT INTO product_upi_data 
-        (user_id, username, product,upiid, payment_ref) 
-        VALUES ('$user_id','$username','$product_names','$upiid' ,'$payment_ref')");
+    $cardQuery = "INSERT INTO product_card_data 
+    (user_id, username, cardholdername, cardnumber, expiry, cvv, product, payment_ref) 
+    VALUES 
+    ('$user_id','$username','$cardholdername','$cardnumber','$expiry','$cvv','$product_names','$payment_ref')";
+
+    if (!mysqli_query($conn, $cardQuery)) {
+        die("Card Insert Error: " . mysqli_error($conn));
     }
+}
+
+// Save UPI
+if ($payment_method === 'upi') {
+
+    $upiid = $_POST['upi'];
+
+    $upiQuery = "INSERT INTO product_upi_data 
+    (user_id, username, upiid, product, payment_ref) 
+    VALUES 
+    ('$user_id','$username','$upiid','$product_names','$payment_ref')";
+
+    if (!mysqli_query($conn, $upiQuery)) {
+        die("UPI Insert Error: " . mysqli_error($conn));
+    }
+}
+
+
 unset($_SESSION['cart']);
 $alertScript = "
 Swal.fire({

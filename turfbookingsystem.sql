@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 15, 2026 at 02:37 PM
+-- Generation Time: Feb 16, 2026 at 07:38 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -65,7 +65,8 @@ CREATE TABLE `card_data` (
 
 INSERT INTO `card_data` (`id`, `user_id`, `username`, `cardholdername`, `cardnumber`, `expiry`, `cvv`, `turfs`, `payment_reference`, `payment_date`) VALUES
 (9, 16, 'princeantala', 'antala prince hiteshbhai', '456654234432', '09/32', '234', 'football', 'FOOTBALL58691', '2025-08-25 23:14:12'),
-(10, 16, 'princeantala', 'antala prince hiteshbhai', '234554345432', '02/28', '333', 'football', 'FOOTBALL95423', '2026-02-12 18:07:30');
+(10, 16, 'princeantala', 'antala prince hiteshbhai', '234554345432', '02/28', '333', 'football', 'FOOTBALL95423', '2026-02-12 18:07:30'),
+(11, 16, 'princeantala', 'adfghnmwesdfgh', '234567543245', '03/30', '234', 'tennis', 'TENNIS72364', '2026-02-16 12:01:56');
 
 -- --------------------------------------------------------
 
@@ -150,7 +151,8 @@ CREATE TABLE `product_card_data` (
 --
 
 INSERT INTO `product_card_data` (`id`, `user_id`, `username`, `cardholdername`, `cardnumber`, `expiry`, `cvv`, `product`, `payment_ref`, `payment_date`) VALUES
-(3, 16, 'princeantala', 'antala prince hiteshbhai', '455432389544', '09/30', '345', 'Badminton Racket (x1), Puma Shoes (x1)', 'Product-5751', '2025-08-24 18:24:25');
+(3, 16, 'princeantala', 'antala prince hiteshbhai', '455432389544', '09/30', '345', 'Badminton Racket (x1), Puma Shoes (x1)', 'Product-5751', '2025-08-24 18:24:25'),
+(4, 16, 'princeantala', 'antala prince hiteshbhai', '234567234562', '05/30', '345', 'Tennis Racket (x1)', 'Product-4744', '2026-02-16 12:08:23');
 
 -- --------------------------------------------------------
 
@@ -184,9 +186,12 @@ CREATE TABLE `product_shopping` (
 --
 
 INSERT INTO `product_shopping` (`id`, `user_id`, `fullname`, `email`, `mobile`, `state`, `city`, `pincode`, `address`, `product_names`, `subtotal`, `sgst`, `cgst`, `grand_total`, `payment_method`, `payment_ref`, `created_at`, `status`) VALUES
-(9, 16, 'Prince antala', 'princeantala45@gmail.com', '7990972794', 'wefsvc ', 'rajkot', '343434', 'erdfvc', 'SG Bat (x1), SS Bat (x1)', 1764.00, 158.76, 158.76, 2081.52, 'upi', 'Product-6753', '2026-02-15 18:29:23', 'Processing'),
-(10, 16, 'Rohit Sharma', 'princeantala45@gmail.com', '7990972794', 'wefsvc ', 'rajkot', '343434', 'sdfvc ', 'SG Bat (x1), Golf Club (x1)', 1399.00, 125.91, 125.91, 1650.82, 'upi', 'Product-7432', '2026-02-15 18:31:05', 'Processing'),
-(11, 19, 'Prince antala', 'hello@gmail.com', '3434334234', 'wefsvc ', 'kathrota', '343434', 'wefgn', 'SS Bat (x1)', 765.00, 68.85, 68.85, 902.70, 'cod', 'Product-1033', '2026-02-15 19:04:08', 'Cancelled');
+(14, 16, 'Prince antala', 'princeantala45@gmail.com', '7990972794', 'gujarat', 'kathrota', '343434', 'qawdsfxcwerghnmhrerthfg', 'SG Bat (x6)', 5994.00, 539.46, 539.46, 7072.92, 'upi', 'Product-1705', '2026-02-16 11:46:24', 'Processing'),
+(15, 16, 'Prince antala', 'admin@gmail.com', '3454334354', 'gujarat', 'rajkot', '360410', 'qwretygqewasrfdgh', 'SS Bat (x1)', 765.00, 68.85, 68.85, 902.70, 'upi', 'Product-2500', '2026-02-16 11:58:42', 'Processing'),
+(16, 16, 'Rohit Sharma', 'demo@gmail.com', '3454334334', 'gujarat', 'kathrota', '451234', 'wesfghwedfg', 'SS Bat (x1)', 765.00, 68.85, 68.85, 902.70, 'upi', 'Product-8569', '2026-02-16 12:05:30', 'Processing'),
+(17, 16, 'Virat Kohli', 'admin@gmail.com', '7990972794', 'gujarat', 'kathrota', '343434', 'waesrdhmn', 'SS Bat (x1)', 765.00, 68.85, 68.85, 902.70, 'upi', 'Product-7858', '2026-02-16 12:06:55', 'Processing'),
+(18, 16, 'Virat Kohli', 'admin@gmail.com', '7990972794', 'gujarat', 'kathrota', '343434', 'waesrdhmnwaesfd', 'SS Bat (x1)', 765.00, 68.85, 68.85, 902.70, 'upi', 'Product-7042', '2026-02-16 12:07:33', 'Processing'),
+(19, 16, 'demo demo demo', 'ram@gmail.com', '7990972794', 'gujarat', 'rajkot', '343434', 'qwretyhjkwsedrfgh', 'Tennis Racket (x1)', 350.00, 31.50, 31.50, 413.00, 'card', 'Product-4744', '2026-02-16 12:08:23', 'Processing');
 
 -- --------------------------------------------------------
 
@@ -209,10 +214,11 @@ CREATE TABLE `product_upi_data` (
 --
 
 INSERT INTO `product_upi_data` (`id`, `user_id`, `username`, `upiid`, `product`, `payment_ref`, `payment_date`) VALUES
-(0, 16, 'princeantala', 'princeantala45@upi', 'SG Bat (x7), Ton Bat (x1)', 'Product-1308', '2026-02-15 12:03:17'),
+(1, 16, 'princeantala', 'princeantala45@upi', 'SG Bat (x7), Ton Bat (x1)', 'Product-1308', '2026-02-15 12:03:17'),
 (4, 16, 'princeantala', 'princeantala45@upi', 'Ceat Bat (x1), Cricket White Ball (x1)', 'Product-8514', '2025-08-24 18:25:57'),
 (5, 16, 'princeantala', 'princeantala45@upi', 'Javelin Stick (x5), Cricket Red Ball (x4)', 'Product-5858', '2026-02-12 18:10:37'),
-(6, 16, 'princeantala', 'princeantala45@upi', 'SG Bat (x2), SS Bat (x1)', 'Product-5253', '2026-02-12 19:19:28');
+(6, 16, 'princeantala', 'princeantala45@upi', 'SG Bat (x2), SS Bat (x1)', 'Product-5253', '2026-02-12 19:19:28'),
+(7, 16, 'princeantala', 'ala45@upi', 'SS Bat (x1)', 'Product-7042', '2026-02-16 12:07:33');
 
 -- --------------------------------------------------------
 
@@ -267,6 +273,17 @@ CREATE TABLE `ticket` (
   `status` varchar(30) NOT NULL DEFAULT 'Booked'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `ticket`
+--
+
+INSERT INTO `ticket` (`booking_id`, `user_id`, `username`, `fullname`, `email`, `mobile`, `state`, `city`, `turfs`, `time_slot`, `base_price`, `cgst`, `sgst`, `total_price`, `address`, `pincode`, `date`, `payment_method`, `booking_time`, `payment_reference`, `status`) VALUES
+(7, 16, 'princeantala', 'Rohit Sharma', 'princeantala45@gmail', '7990972794', 'wefsvc', 'sdfvbdcv', 'basketball', '12:00 AM - 01:00 AM', 4500.00, 405.00, 405.00, 5310.00, 'dhoraji', '343434', '2026-02-26', 'card', '2026-02-16 11:54:40', 'BASKETBALL51059', 'Booked'),
+(8, 16, 'princeantala', 'Rohit Sharma', 'princeantala45@gmail', '7990972794', 'wefsvc', 'sdfvbdcv', 'hockey', '01:00 PM - 02:00 PM', 3000.00, 270.00, 270.00, 3540.00, 'dhoraji', '343434', '2026-02-26', 'card', '2026-02-16 11:55:44', 'HOCKEY49124', 'Booked'),
+(9, 16, 'princeantala', 'Rohit Sharma', 'princeantala45@gmail', '7990972794', 'wefsvc', 'sdfvbdcv', 'football', '12:00 AM - 01:00 AM', 5000.00, 450.00, 450.00, 5900.00, 'dhoraji', '343434', '2026-02-26', 'upi', '2026-02-16 11:57:06', 'FOOTBALL62512', 'Booked'),
+(10, 16, 'princeantala', 'Prince antala', 'princeantala45@gmail', '3454334334', 'wefsvc', 'kathrota', 'tennis', '12:00 AM - 01:00 AM', 2500.00, 225.00, 225.00, 2950.00, 'dhoraji', '343434', '2026-02-24', 'card', '2026-02-16 12:01:56', 'TENNIS72364', 'Booked'),
+(11, 16, 'princeantala', 'Prince antala', 'princeantala45@gmail', '3454334334', 'wefsvc', 'kathrota', 'football', '12:00 AM - 01:00 AM', 5000.00, 450.00, 450.00, 5900.00, 'dhoraji', '343434', '2026-02-24', 'upi', '2026-02-16 12:02:34', 'FOOTBALL26207', 'Booked');
+
 -- --------------------------------------------------------
 
 --
@@ -289,7 +306,8 @@ CREATE TABLE `upi` (
 
 INSERT INTO `upi` (`id`, `user_id`, `username`, `upiid`, `turfs`, `payment_reference`, `payment_date`) VALUES
 (22, 16, 'princeantala', 'princeantala@upi', 'golf', 'GOLF37626', '2025-08-25 23:12:41'),
-(24, 16, 'princeantala', 'princeantala45@upi', 'volleyball', 'VOLLEYBALL72589', '2026-02-12 17:54:40');
+(24, 16, 'princeantala', 'princeantala45@upi', 'volleyball', 'VOLLEYBALL72589', '2026-02-12 17:54:40'),
+(25, 16, 'princeantala', 'wasdfgsdf@upi', 'football', 'FOOTBALL26207', '2026-02-16 12:02:34');
 
 --
 -- Indexes for dumped tables
@@ -375,7 +393,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `card_data`
 --
 ALTER TABLE `card_data`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `product`
@@ -387,13 +405,19 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT for table `product_card_data`
 --
 ALTER TABLE `product_card_data`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `product_shopping`
 --
 ALTER TABLE `product_shopping`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
+-- AUTO_INCREMENT for table `product_upi_data`
+--
+ALTER TABLE `product_upi_data`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `signup`
@@ -405,13 +429,13 @@ ALTER TABLE `signup`
 -- AUTO_INCREMENT for table `ticket`
 --
 ALTER TABLE `ticket`
-  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `upi`
 --
 ALTER TABLE `upi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- Constraints for dumped tables

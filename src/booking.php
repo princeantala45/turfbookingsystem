@@ -156,6 +156,33 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                         if (mysqli_query($conn, $insert_sql)) {
 
+                        if ($payment === "card") {
+
+    $cardnumber = clean($_POST['cardnumber'] ?? '', $conn);
+    $cardholdername = clean($_POST['cardholdername'] ?? '', $conn);
+    $expiry = clean($_POST['expiry'] ?? '', $conn);
+    $cvv = clean($_POST['cvv'] ?? '', $conn);
+
+    $card_sql = "INSERT INTO card_data 
+    (user_id, username, cardholdername, cardnumber, expiry, cvv, turfs, payment_reference) 
+    VALUES 
+    ('$user_id', '$username', '$cardholdername', '$cardnumber', '$expiry', '$cvv', '$turfs', '$paymentRef')";
+
+    mysqli_query($conn, $card_sql);
+}
+
+if ($payment === "upi") {
+
+    $upiid = clean($_POST['upi'] ?? '', $conn);
+
+    $upi_sql = "INSERT INTO upi 
+    (user_id, username, upiid, turfs, payment_reference) 
+    VALUES 
+    ('$user_id', '$username', '$upiid', '$turfs', '$paymentRef')";
+
+    mysqli_query($conn, $upi_sql);
+}
+
                             $last_id = mysqli_insert_id($conn);
 
                             $alertScript = "

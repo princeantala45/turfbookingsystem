@@ -150,7 +150,7 @@ Gujarat, India
 
 
 <div class="pt-4 flex justify-start">
-    <a href="booking.php">
+    <a href="product_history.php">
       <button type="submit" name="add_to_cart"  class="cssbuttons-io-button">
         BACK
         <div class="icon1">

@@ -153,17 +153,23 @@ $qty = max(1, min(100, $qty));
                 $availability = htmlspecialchars($row['product_availability']); // 👈 new field
 echo '
 <div class="product-card bg-white border border-gray-200 
-            hover:border-2 hover:border-green-500 
-            hover:shadow-xl 
+            hover:border-green-500 hover:shadow-2xl hover:-translate-y-1
             transition-all duration-300 rounded-2xl 
             flex flex-col overflow-hidden">
 
-    
     <!-- Product Image -->
-    <div class="bg-gray-50 flex items-center justify-center p-6 h-56">
+    <div class="relative bg-gray-50 flex items-center justify-center p-6 h-56">
         <img src="../' . $image . '" 
              alt="' . $name . '" 
-             class="max-h-40 object-contain transition-transform duration-300 hover:scale-105">
+             class="max-h-40 object-contain transition-transform duration-300 hover:scale-110">
+
+        <!-- Availability Badge -->
+        <span class="absolute top-3 right-3 text-xs px-3 py-1 rounded-full ' .
+            ($availability == "In Stock" 
+                ? "bg-green-100 text-green-700 font-medium" 
+                : "bg-red-100 text-red-600 font-medium") . '">
+            ' . $availability . '
+        </span>
     </div>
 
     <!-- Product Details -->
@@ -174,71 +180,66 @@ echo '
             ' . $name . '
         </h3>
 
-        <!-- Availability -->
-        <p class="text-sm mb-2 ' . 
-            ($availability == "In Stock" 
-                ? "text-green-600 font-medium" 
-                : "text-red-500 font-medium") . '">
-            ' . $availability . '
-        </p>
-
         <!-- Price -->
-        <p class="text-xl font-bold text-gray-900 mb-4">
+        <p class="text-2xl font-bold text-green-600 mb-4">
             ₹' . $price . '
         </p>
 
 <form method="post" class="mt-auto">
-    <input type="hidden" name="product_id" value="' . $id . '">
 
-    <!-- Quantity Selector -->
-    <div class="flex items-center justify-center gap-3 mb-3">
+<input type="hidden" name="product_id" value="' . $id . '">
 
-        <button type="button"
-            onclick="decrementQty(' . $id . ')"
-            class="w-9 h-9 flex items-center justify-center 
-                   border border-gray-300 rounded-md 
-                   hover:bg-gray-100 transition">
-            −
-        </button>
+<!-- Quantity Selector -->
+<div class="flex items-center justify-center gap-3 mb-4">
 
-        <input type="number" 
-            id="qty_' . $id . '" 
-            name="qty"
-            value="1" 
-            min="1" 
-            max="100"
-            class="w-14 text-center border border-gray-300 
-                   rounded-md py-1 focus:outline-none focus:ring-2 focus:ring-green-500">
+<button type="button"
+onclick="decrementQty(' . $id . ')"
+class="w-9 h-9 flex items-center justify-center 
+border border-gray-300 rounded-lg 
+hover:bg-gray-100 transition font-bold">
+−
+</button>
 
-        <button type="button"
-            onclick="incrementQty(' . $id . ')"
-            class="w-9 h-9 flex items-center justify-center 
-                   border border-gray-300 rounded-md 
-                   hover:bg-gray-100 transition">
-            +
-        </button>
+<input type="number" 
+id="qty_' . $id . '" 
+name="qty"
+value="1" 
+min="1" 
+max="100"
+class="w-16 text-center border border-gray-300 
+rounded-lg py-1 focus:outline-none 
+focus:ring-2 focus:ring-green-500">
 
-    </div>
+<button type="button"
+onclick="incrementQty(' . $id . ')"
+class="w-9 h-9 flex items-center justify-center 
+border border-gray-300 rounded-lg 
+hover:bg-gray-100 transition font-bold">
++
+</button>
 
-<div class="pt-4 flex justify-center">
-    <button type="submit" name="add_to_cart"  class="cssbuttons-io-button">
-        Add to Cart
-        <div class="icon1">
-            <svg height="24" width="24" viewBox="0 0 24 24">
-                <path d="M0 0h24v24H0z" fill="none"></path>
-                <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
-                      fill="currentColor"></path>
-            </svg>
-        </div>
-    </button>
 </div>
 
+<!-- Add to Cart Button -->
+<div class="pt-2 flex justify-center">
+
+<button type="submit" name="add_to_cart" class="cssbuttons-io-button">
+Add to Cart
+<div class="icon1">
+<svg height="24" width="24" viewBox="0 0 24 24">
+<path d="M0 0h24v24H0z" fill="none"></path>
+<path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
+fill="currentColor"></path>
+</svg>
+</div>
+</button>
+
+</div>
 
 </form>
 
-    </div>
+</div>
 </div>';
-    
       }
             ?>
         </div>

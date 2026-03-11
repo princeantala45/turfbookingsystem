@@ -62,51 +62,75 @@ if (!isset($_SESSION['username'])) {
   </section>
 
   <!-- Review Section -->
-<section class="bg-gray-100 py-16 px-6">
-
-  <!-- Review Cards Grid -->
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-    <!-- Review Card 1 -->
-    <div class="bg-white rounded-2xl shadow-md p-6 pt-10 text-center hover:shadow-xl transition-all duration-300">
-      <img src="./review-img/rohit.jpg" class="w-24 h-24 mx-auto rounded-full border-4 border-white shadow -mt-16" alt="Rohit Sharma">
-      <h3 class="mt-6 font-semibold text-xl text-gray-800">Rohit Sharma</h3>
-      <p class="mt-3 text-gray-600 text-sm">"The ability to view turf availability in real time is incredibly helpful. Everything is done online within minutes, and it works flawlessly."</p>
+<section class="bg-gradient-to-b from-gray-50 to-gray-200 py-20 px-6">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-16 gap-x-8">
+    
+    <div class="group bg-white rounded-3xl shadow-sm border border-gray-100 p-8 pt-12 text-center hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 relative">
+      <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
+        <img src="./review-img/rohit.jpg" class="w-24 h-24 rounded-full border-4 border-white shadow-lg object-cover group-hover:scale-110 transition-transform duration-500" alt="Rohit Sharma">
+      </div>
+      <div class="flex justify-center mb-2 text-yellow-400">
+        ★★★★★
+      </div>
+      <h3 class="font-bold text-xl text-gray-800 tracking-tight">Rohit Sharma</h3>
+      <p class="mt-4 text-gray-600 leading-relaxed italic">"The ability to view turf availability in real time is incredibly helpful. Everything is done online within minutes, and it works flawlessly."</p>
     </div>
 
-    <!-- Review Card 2 -->
-    <div class="bg-white rounded-2xl shadow-md p-6 pt-10 text-center hover:shadow-xl transition-all duration-300">
-      <img src="./review-img/harmanpreet singh.jpg" class="w-24 h-24 mx-auto rounded-full border-4 border-white shadow -mt-16" alt="Harmanpreet Singh">
-      <h3 class="mt-6 font-semibold text-xl text-gray-800">Harmanpreet Singh</h3>
-      <p class="mt-3 text-gray-600 text-sm">"We organize regular corporate matches, and this system handles everything smoothly—from scheduling to payments."</p>
+    <div class="group bg-white rounded-3xl shadow-sm border border-gray-100 p-8 pt-12 text-center hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 relative">
+      <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
+        <img src="./review-img/harmanpreet singh.jpg" class="w-24 h-24 rounded-full border-4 border-white shadow-lg object-cover group-hover:scale-110 transition-transform duration-500" alt="Harmanpreet Singh">
+      </div>
+      <div class="flex justify-center mb-2 text-yellow-400">
+        ★★★★★
+      </div>
+      <h3 class="font-bold text-xl text-gray-800 tracking-tight">Harmanpreet Singh</h3>
+      <p class="mt-4 text-gray-600 leading-relaxed italic">"We organize regular corporate matches, and this system handles everything smoothly—from scheduling to payments."</p>
     </div>
 
-    <!-- Review Card 3 -->
-    <div class="bg-white rounded-2xl shadow-md p-6 pt-10 text-center hover:shadow-xl transition-all duration-300">
-      <img src="./review-img/manu bhaker.jpg" class="w-24 h-24 mx-auto rounded-full border-4 border-white shadow -mt-16" alt="Manu Bhaker">
-      <h3 class="mt-6 font-semibold text-xl text-gray-800">Manu Bhaker</h3>
-      <p class="mt-3 text-gray-600 text-sm">"The platform is user-friendly and efficient. Booking a turf takes less than a minute. Ideal for casual players and serious teams."</p>
+    <div class="group bg-white rounded-3xl shadow-sm border border-gray-100 p-8 pt-12 text-center hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 relative">
+      <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
+        <img src="./review-img/manu bhaker.jpg" class="w-24 h-24 rounded-full border-4 border-white shadow-lg object-cover group-hover:scale-110 transition-transform duration-500" alt="Manu Bhaker">
+      </div>
+      <div class="flex justify-center mb-2 text-yellow-400">
+        ★★★★★
+      </div>
+      <h3 class="font-bold text-xl text-gray-800 tracking-tight">Manu Bhaker</h3>
+      <p class="mt-4 text-gray-600 leading-relaxed italic">"The platform is user-friendly and efficient. Booking a turf takes less than a minute. Ideal for casual players and serious teams."</p>
     </div>
 
-    <!-- Review Card 4 -->
-    <div class="bg-white rounded-2xl shadow-md p-6 pt-10 text-center hover:shadow-xl transition-all duration-300">
-      <img src="./review-img/neeraj.avif" class="w-24 h-24 mx-auto rounded-full border-4 border-white shadow -mt-16" alt="Neeraj Chopra">
-      <h3 class="mt-6 font-semibold text-xl text-gray-800">Neeraj Chopra</h3>
-      <p class="mt-3 text-gray-600 text-sm">"This website has simplified our weekend football plans. No more calls or confusion—just select, book, and play."</p>
+    <div class="group bg-white rounded-3xl shadow-sm border border-gray-100 p-8 pt-12 text-center hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 relative">
+      <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
+        <img src="./review-img/neeraj.avif" class="w-24 h-24 rounded-full border-4 border-white shadow-lg object-cover group-hover:scale-110 transition-transform duration-500" alt="Neeraj Chopra">
+      </div>
+      <div class="flex justify-center mb-2 text-yellow-400">
+        ★★★★★
+      </div>
+      <h3 class="font-bold text-xl text-gray-800 tracking-tight">Neeraj Chopra</h3>
+      <p class="mt-4 text-gray-600 leading-relaxed italic">"This website has simplified our weekend football plans. No more calls or confusion—just select, book, and play."</p>
     </div>
 
-    <!-- Review Card 5 -->
-    <div class="bg-white rounded-2xl shadow-md p-6 pt-10 text-center hover:shadow-xl transition-all duration-300">
-      <img src="./review-img/sun.jpg" class="w-24 h-24 mx-auto rounded-full border-4 border-white shadow -mt-16" alt="Sunil Chhetri">
-      <h3 class="mt-6 font-semibold text-xl text-gray-800">Sunil Chhetri</h3>
-      <p class="mt-3 text-gray-600 text-sm">"Real-time turf availability is a game changer. Booking is fast, simple, and reliable every time."</p>
+    <div class="group bg-white rounded-3xl shadow-sm border border-gray-100 p-8 pt-12 text-center hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 relative">
+      <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
+        <img src="./review-img/sun.jpg" class="w-24 h-24 rounded-full border-4 border-white shadow-lg object-cover group-hover:scale-110 transition-transform duration-500" alt="Sunil Chhetri">
+      </div>
+      <div class="flex justify-center mb-2 text-yellow-400">
+        ★★★★★
+      </div>
+      <h3 class="font-bold text-xl text-gray-800 tracking-tight">Sunil Chhetri</h3>
+      <p class="mt-4 text-gray-600 leading-relaxed italic">"Real-time turf availability is a game changer. Booking is fast, simple, and reliable every time."</p>
     </div>
 
-    <!-- Review Card 6 -->
-    <div class="bg-white rounded-2xl shadow-md p-6 pt-10 text-center hover:shadow-xl transition-all duration-300">
-      <img src="./review-img/sachin.jpeg" class="w-24 h-24 mx-auto rounded-full border-4 border-white shadow -mt-16" alt="Sachin Tendulkar">
-      <h3 class="mt-6 font-semibold text-xl text-gray-800">Sachin Tendulkar</h3>
-      <p class="mt-3 text-gray-600 text-sm">"Booking a turf has never been easier! I can check availability and book within minutes. Great experience every time."</p>
+    <div class="group bg-white rounded-3xl shadow-sm border border-gray-100 p-8 pt-12 text-center hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 relative">
+      <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
+        <img src="./review-img/sachin.jpeg" class="w-24 h-24 rounded-full border-4 border-white shadow-lg object-cover group-hover:scale-110 transition-transform duration-500" alt="Sachin Tendulkar">
+      </div>
+      <div class="flex justify-center mb-2 text-yellow-400">
+        ★★★★★
+      </div>
+      <h3 class="font-bold text-xl text-gray-800 tracking-tight">Sachin Tendulkar</h3>
+      <p class="mt-4 text-gray-600 leading-relaxed italic">"Booking a turf has never been easier! I can check availability and book within minutes. Great experience every time."</p>
     </div>
+
   </div>
 </section>
 
