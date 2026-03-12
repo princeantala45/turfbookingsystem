@@ -17,7 +17,7 @@ A modern web platform that allows users to easily reserve sports turf slots onli
 
 <p align="center">
 
-🔗 **https://turfbookingsystem.ct.ws/login.php**
+🔗 **https://turfbookingsystem.ct.ws/**
 
 </p>
 
@@ -115,16 +115,6 @@ The project aims to:
 - prevent scheduling conflicts  
 - improve user experience through an online system  
 - provide a modern sports facility management solution  
-
----
-
-# 📸 System Preview
-
-<p align="center">
-
-<img src="https://media.giphy.com/media/QssGEmpkyEOhBCb7e1/giphy.gif" width="700">
-
-</p>
 
 ---
 
