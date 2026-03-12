@@ -1,6 +1,6 @@
 <!-- Animated Header -->
 <p align="center">
-<img src="https://readme-typing-svg.herokuapp.com?font=Poppins&size=36&duration=3500&color=00C853&center=true&vCenter=true&width=950&lines=⚽+Turf+Booking+System;Online+Sports+Ground+Reservation+Platform;Built+with+PHP+MySQL+Tailwind+Bootstrap;Smart+Slot+Booking+Management" />
+<img src="https://readme-typing-svg.herokuapp.com?font=Poppins&size=36&duration=3500&color=00C853&center=true&vCenter=true&width=950&lines=⚽+Turf+Booking+System;Online+Sports+Ground+Reservation+Platform;Built+With+PHP+MySQL+Tailwind+Bootstrap;Smart+Slot+Booking+Management" />
 </p>
 
 ---
@@ -8,12 +8,12 @@
 <h1 align="center">⚽ Turf Booking System</h1>
 
 <p align="center">
-A modern web application that allows users to easily reserve sports turf slots online, check availability, and manage bookings through a simple digital platform.
+A modern web platform that allows users to easily reserve sports turf slots online, check availability, and manage bookings through a simple digital interface.
 </p>
 
 ---
 
-# 🌐 Live Website
+## 🌐 Live Website
 
 <p align="center">
 
@@ -23,63 +23,69 @@ A modern web application that allows users to easily reserve sports turf slots o
 
 ---
 
-# ⚽ About the System
+# ⚽ System Overview
 
-The **Turf Booking System** is a web-based application designed to simplify the process of reserving sports grounds such as football turf, cricket turf, and other sports facilities.
+The **Turf Booking System** is a web-based platform that simplifies the process of booking sports facilities such as football turf, cricket grounds, and other play areas.
 
-Instead of manual bookings or phone reservations, users can access an online platform to check available time slots and reserve the turf instantly.
+Instead of manual booking or phone reservations, users can quickly check turf availability and reserve slots online.  
+The system helps turf owners manage bookings, users, and schedules efficiently.
 
-The system provides a centralized interface where users, administrators, and managers can efficiently handle bookings, payments, and turf management.
-
-Online booking systems help reduce scheduling conflicts and allow users to view real-time slot availability before confirming reservations. :contentReference[oaicite:1]{index=1}
-
----
-
-# ✨ Core Features
-
-### 👤 User Features
-- User registration and login
-- View available turf locations
-- Check slot availability
-- Book turf by selecting date and time
-- View booking history
-- Manage personal profile
-
-### 🛠 Admin Features
-- Admin dashboard
-- Manage turf facilities
-- Manage bookings
-- Manage users
-- Update turf availability
-- Track payments and booking records
-
-### 📅 Booking Features
-- Real-time slot checking
-- Date and time slot selection
-- Booking confirmation
-- Payment tracking
-- Booking history management
-
-The booking module allows users to select a turf, choose a time slot, and confirm the reservation while storing the booking in the database. :contentReference[oaicite:2]{index=2}
+This platform improves convenience for both **players and turf managers** by providing a centralized digital booking system.
 
 ---
 
-# 🧑‍💻 Technologies Used
+# ✨ Key Features
+
+<table align="center">
+<tr>
+<th>Feature</th>
+<th>Description</th>
+</tr>
+
+<tr>
+<td>👤 User Registration</td>
+<td>Users can create an account and log in to the system.</td>
+</tr>
+
+<tr>
+<td>📅 Slot Booking</td>
+<td>Players can select a date and time slot to reserve the turf.</td>
+</tr>
+
+<tr>
+<td>⚽ Turf Listing</td>
+<td>Displays available turf facilities with details.</td>
+</tr>
+
+<tr>
+<td>📊 Booking History</td>
+<td>Users can view their previous bookings.</td>
+</tr>
+
+<tr>
+<td>🛠 Admin Dashboard</td>
+<td>Admin can manage bookings, turfs, and users.</td>
+</tr>
+
+<tr>
+<td>📱 Responsive Design</td>
+<td>Fully optimized for mobile, tablet, and desktop devices.</td>
+</tr>
+
+</table>
+
+---
+
+# 🧑‍💻 Technology Stack
 
 <p align="center">
 
 <img src="https://img.shields.io/badge/PHP-Backend-blue?style=for-the-badge&logo=php">
-
 <img src="https://img.shields.io/badge/MySQL-Database-orange?style=for-the-badge&logo=mysql">
-
 <img src="https://img.shields.io/badge/HTML5-Frontend-red?style=for-the-badge&logo=html5">
-
 <img src="https://img.shields.io/badge/CSS3-Styling-blue?style=for-the-badge&logo=css3">
-
 <img src="https://img.shields.io/badge/JavaScript-Interactive-yellow?style=for-the-badge&logo=javascript">
-
 <img src="https://img.shields.io/badge/TailwindCSS-UI%20Framework-38B2AC?style=for-the-badge&logo=tailwindcss">
-
 <img src="https://img.shields.io/badge/Bootstrap-Responsive%20UI-purple?style=for-the-badge&logo=bootstrap">
 
 </p>
@@ -88,33 +94,27 @@ The booking module allows users to select a turf, choose a time slot, and confir
 
 # ⚙ System Modules
 
-### 🔑 Authentication Module
-Handles login and registration for users and administrators.
-
-### ⚽ Turf Management Module
-Allows admins to add, update, and manage turf facilities and pricing.
-
-### 📅 Booking Module
-Allows users to book available slots and stores booking data in the database.
-
-### 💳 Payment Module
-Handles booking payments and payment history.
-
-### 👥 User Management Module
-Admin can view, update, or remove users.
+| Module | Description |
+|------|-------------|
+| 🔐 Authentication | Handles user login and registration |
+| ⚽ Turf Management | Admin manages turf information |
+| 📅 Booking Management | Users reserve available slots |
+| 👥 User Management | Admin controls registered users |
+| 💳 Payment Tracking | Stores booking payment information |
 
 ---
 
 # 🎯 Purpose of the Project
 
-The purpose of this project is to create a **digital booking system for sports turfs** that reduces manual management and simplifies reservations.
+This system is developed to demonstrate how technology can improve **sports facility management and booking systems**.
 
-This system helps:
+The project aims to:
 
-- Sports players book slots easily
-- Turf owners manage bookings efficiently
-- Prevent double bookings
-- Improve user experience with a simple interface
+- simplify turf reservations  
+- reduce manual booking processes  
+- prevent scheduling conflicts  
+- improve user experience through an online system  
+- provide a modern sports facility management solution  
 
 ---
 
@@ -130,25 +130,24 @@ This system helps:
 
 # 🚀 Future Improvements
 
-Possible upgrades for the system include:
+Possible enhancements for this project include:
 
-- Online payment gateway integration
-- Email/SMS booking confirmation
-- Google Maps turf location integration
-- Mobile application version
-- Real-time notification system
-- Player team matching system
+- Online payment gateway integration  
+- Email or SMS booking confirmation  
+- Google Maps turf location integration  
+- Real-time slot availability updates  
+- Mobile application version  
 
 ---
 
 # ⭐ Support
 
-If you like this project, please give it a ⭐ on GitHub.
+If you like this project, consider giving it a ⭐ on GitHub.
 
 ---
 
 # 📜 Disclaimer
 
-This project is created for **learning and educational purposes** and demonstrates how a sports facility booking system can be developed using PHP and MySQL.
+This project is created for **educational and demonstration purposes only** and showcases how a sports facility booking platform can be developed using PHP and MySQL.
 
 ---
